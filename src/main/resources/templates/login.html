@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Super gym</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-u1OknCvxWvY5kfmNBILK2hRnQC3Pr17a+RTT6rIHI7NnikvbZlHgTPOOmMi466C8"
+            crossorigin="anonymous"></script>
+    <link rel="icon" href="../static/free-30-instagram-stories-icons60_122607.ico">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bungee+Spice&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<header class="p-3 text-bg-dark">
+    <div class="container-header">
+        <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
+            <a href="/" class="d-flex align-items-center mb-2 mb-lg-0 text-white text-decoration-none">
+                <svg class="bi me-2" width="40" height="32" role="img" aria-label="Bootstrap">
+                    <use xlink:href="#bootstrap"></use>
+                </svg>
+            </a>
+
+            <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
+                <li><img src="../static/free-30-instagram-stories-icons60_122607.ico"></li>
+                <li><a href="menu.html" class="nav-link px-2 text-secondary">Super gym</a></li>
+                <li><a href="coaches.html" class="nav-link px-2 text-white">Coaches</a></li>
+                <li><a href="pricing.html" class="nav-link px-2 text-white">Pricing</a></li>
+                <li><a href="about.html" class="nav-link px-2 text-white">About</a></li>
+            </ul>
+
+            <div class="text-end">
+                <button type="button" onclick="window.location.href = 'login.html'" class="btn btn-outline-light me-2">
+                    Login
+                </button>
+                <button type="button" onclick="window.location.href = 'sign-up.html'" class="btn btn-warning">Sign-up
+                </button>
+            </div>
+        </div>
+    </div>
+</header>
+
+<div class="form-sign">
+    <main class="form-signin w-100 m-auto">
+        <form>
+            <img class="mb-4" src="../static/big-logo.png">
+            <h1 class="header-login">Please sign in</h1></br>
+
+            <div class="form-floating">
+                <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com">
+                <label for="floatingInput">Email address</label>
+            </div>
+            <div class="form-floating">
+                <input type="password" class="form-control" id="floatingPassword" placeholder="Password">
+                <label for="floatingPassword">Password</label><br>
+            </div>
+
+            <div class="checkbox">
+                <div class="checkbox mb-3">
+                    <label>
+                        <input type="checkbox" value="remember-me"> Remember me
+                    </label>
+                </div>
+            </div>
+            <div class="submit-login">
+                <button class="btn btn-dark" type="submit">Sign in</button>
+            </div>
+        </form>
+    </main>
+</div>
+
+<div class="container-footer">
+    <footer class="py-3 my-4">
+        <ul class="nav justify-content-center border-bottom pb-3 mb-3">
+            <li class="nav-item"><a href="menu.html" class="nav-link px-2 text-muted">Super gym</a></li>
+            <li class="nav-item"><a href="coaches.html" class="nav-link px-2 text-muted">Coaches</a></li>
+            <li class="nav-item"><a href="pricing.html" class="nav-link px-2 text-muted">Pricing</a></li>
+            <li class="nav-item"><a href="about.html" class="nav-link px-2 text-muted">About</a></li>
+        </ul>
+        <p class="text-center">© 2022 Company super gym, Inc</p>
+    </footer>
+</div>
+</body>
+</html>
