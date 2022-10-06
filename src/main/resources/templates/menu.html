@@ -1,5 +1,8 @@
-<!DOCTYPE html>
-<html lang="en">
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-spring4-4.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="default" lang="en">
 <head>
     <meta charset="UTF-8">
     <title>Super gym</title>
@@ -8,43 +11,60 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js"
             integrity="sha384-u1OknCvxWvY5kfmNBILK2hRnQC3Pr17a+RTT6rIHI7NnikvbZlHgTPOOmMi466C8"
             crossorigin="anonymous"></script>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter+Tight:ital,wght@1,300&display=swap" rel="stylesheet">
-    <link rel="icon" href="../static/free-30-instagram-stories-icons60_122607.ico">
-    <link rel="stylesheet" href="styles.css">
-    <link rel="canonical" href="https://getbootstrap.com/docs/5.2/examples/headers/">
+    <link rel="icon" th:href="@{/design-site/free-30-instagram-stories-icons60_122607.ico}"
+          href="../static/design-site/free-30-instagram-stories-icons60_122607.ico">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Bungee+Spice&display=swap" rel="stylesheet">
+    <link rel="stylesheet" th:href="@{/styles/styles.css}" href="../static/styles/styles.css">
 </head>
 <body>
-<!--<div th:fragment="header-container">-->
-<header class="p-3 text-bg-dark">
-    <div class="container-header">
-        <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
-            <a href="/" class="d-flex align-items-center mb-2 mb-lg-0 text-white text-decoration-none">
-                <svg class="bi me-2" width="40" height="32" role="img" aria-label="Bootstrap">
-                    <use xlink:href="#bootstrap"></use>
-                </svg>
-            </a>
 
-            <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
-                <li><img th:src="@{../static/free-30-instagram-stories-icons60_122607.ico}" src="../static/free-30-instagram-stories-icons60_122607.ico"></li>
-                <li><a href="menu.html" class="nav-link px-2 text-secondary">Super gym</a></li>
-                <li><a href="coaches.html" class="nav-link px-2 text-white">Coaches</a></li>
-                <li><a href="pricing.html" class="nav-link px-2 text-white">Pricing</a></li>
-                <li><a href="about.html" class="nav-link px-2 text-white">About</a></li>
-            </ul>
+<div th:insert="sign-up :: header-container"></div>
 
-            <div class="text-end">
-                <button type="button" onclick="window.location.href = 'login.html'" class="btn btn-outline-light me-2">Login</button>
-                <button type="button" onclick="window.location.href = 'sign-up.html'" class="btn btn-warning">Sign-up</button>
-            </div>
-        </div>
-    </div>
-</header>
+<!--<header class="p-3 text-bg-dark">-->
+<!--    <div class="container-header">-->
+<!--        <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">-->
+<!--            <a href="/" class="d-flex align-items-center mb-2 mb-lg-0 text-white text-decoration-none">-->
+<!--                <svg class="bi me-2" width="40" height="32" role="img" aria-label="Bootstrap">-->
+<!--                    <use xlink:href="#bootstrap"></use>-->
+<!--                </svg>-->
+<!--            </a>-->
+
+<!--            <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">-->
+<!--                <li><img th:src="@{../static/design-site/free-30-instagram-stories-icons60_122607.ico}"-->
+<!--                         src="../static/design-site/free-30-instagram-stories-icons60_122607.ico"></li>-->
+<!--                <li><a href="menu.html" class="nav-link px-2 text-secondary">Super gym</a></li>-->
+<!--                <li><a href="coaches.html" class="nav-link px-2 text-white">Coaches</a></li>-->
+<!--                <li><a href="pricing.html" class="nav-link px-2 text-white">Pricing</a></li>-->
+<!--                <li><a href="about.html" class="nav-link px-2 text-white">About</a></li>-->
+<!--            </ul>-->
+
+<!--            <div class="button-visitors">-->
+<!--                <button type="button" onclick="window.location.href = 'visitors.html'"-->
+<!--                        class="btn btn-info">Visitors-->
+<!--                </button>-->
+<!--            </div>-->
+
+<!--            <div class="button-admins">-->
+<!--                <button type="button" onclick="window.location.href = 'admins.html'"-->
+<!--                        class="btn btn-success">Admins-->
+<!--                </button>-->
+<!--            </div>-->
+
+<!--            <div class="header-for-login-user">-->
+<!--                <h6-->
+<!--                        class="example" th:text="|${visitor.email}|">example@gmail.com-->
+<!--                </h6>-->
+<!--                <button type="button" onclick="window.location.href = 'login.html'"-->
+<!--                        class="btn btn-outline-light me-2">Log out-->
+<!--                </button>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--    </div>-->
+<!--</header>-->
 <!--</div>-->
+
 <h1 class="global-name">Super Gym</h1>
 <main>
     <div id="myCarousel" class="carousel slide" data-bs-ride="carousel">
@@ -57,16 +77,16 @@
         </div>
         <div class="carousel-inner">
             <div class="carousel-item active">
-                <img src="../static/gym-photo/photo1.jpg">
+                <img th:src="@{/gym-photo/photo1.jpg}" src="../static/gym-photo/photo1.jpg">
             </div>
             <div class="carousel-item">
-                <img src="../static/gym-photo/photo2.jpg">
+                <img th:src="@{/gym-photo/photo2.jpg}" src="../static/gym-photo/photo2.jpg">
             </div>
             <div class="carousel-item">
-                <img src="../static/gym-photo/photo3.jpg">
+                <img th:src="@{/gym-photo/photo3.jpg}" src="../static/gym-photo/photo3.jpg">
             </div>
             <div class="carousel-item">
-                <img src="../static/gym-photo/photo4.jpg">
+                <img th:src="@{/gym-photo/photo4.jpg}" src="../static/gym-photo/photo4.jpg">
             </div>
         </div>
         <button class="carousel-control-prev" type="button" data-bs-target="#myCarousel" data-bs-slide="prev">
@@ -86,18 +106,11 @@
     <p class="address-item">Telephone number: <br> +380953226983</p>
 </div>
 <div class="map">
-    <iframe src="https://www.google.com/maps/d/u/0/embed?mid=1j-Ous1SDxuOdYWellGLlibO6aNUrC40&ehbc=2E312F" width="940" height="600"></iframe>
+    <iframe src="https://www.google.com/maps/d/u/0/embed?mid=1j-Ous1SDxuOdYWellGLlibO6aNUrC40&ehbc=2E312F" width="940"
+            height="600"></iframe>
 </div>
-<div class="container-footer">
-    <footer class="py-3 my-4">
-        <ul class="nav justify-content-center border-bottom pb-3 mb-3">
-            <li class="nav-item"><a href="menu.html" class="nav-link px-2 text-muted">Super gym</a></li>
-            <li class="nav-item"><a href="coaches.html" class="nav-link px-2 text-muted">Coaches</a></li>
-            <li class="nav-item"><a href="pricing.html" class="nav-link px-2 text-muted">Pricing</a></li>
-            <li class="nav-item"><a href="about.html" class="nav-link px-2 text-muted">About</a></li>
-        </ul>
-        <p class="text-center">© 2022 Company super gym, Inc</p>
-    </footer>
-</div>
+
+<div th:insert="sign-up :: footer-container"></div>
+
 </body>
 </html>

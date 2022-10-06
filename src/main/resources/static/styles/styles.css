@@ -1,5 +1,4 @@
 * {
-    /*font-family: 'Inter Tight', sans-serif;*/
     font-family: 'Bungee Spice', cursive;
 }
 
@@ -8,7 +7,7 @@
 }
 
 body {
-    background-image: url("../static/modern-home-gym.jpg");
+    background-image: url("../design-site/modern-home-gym.jpg");
     background-position: center center;
     background-attachment: fixed;
 }
@@ -224,3 +223,33 @@ main {
     position: relative;
     top: 25px;
 }
+
+.header-for-login-user {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+
+}
+
+.example{
+    display: flex;
+    margin-right: 25px;
+    margin-top: 10px;
+}
+
+.button-visitors {
+    display: flex;
+    margin-right: 330px;
+    border: 2px solid white;
+    border-radius: 7px;
+}
+
+.button-admins {
+    position: relative;
+    right: 280px;
+    border: 2px solid white;
+    border-radius: 7px;
+}
+
+
