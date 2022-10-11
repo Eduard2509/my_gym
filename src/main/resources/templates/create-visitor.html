@@ -17,42 +17,12 @@
     <link rel="stylesheet" th:href="@{/styles/styles.css}" href="../static/styles/styles.css">
 </head>
 <body>
-<div th:fragment="header-container">
-    <header class="p-3 text-bg-dark">
-        <div class="container-header">
-            <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
-                <a href="/" class="d-flex align-items-center mb-2 mb-lg-0 text-white text-decoration-none">
-                    <svg class="bi me-2" width="40" height="32" role="img" aria-label="Bootstrap">
-                        <use xlink:href="#bootstrap"></use>
-                    </svg>
-                </a>
+<div th:insert="menu :: header-login-visitor"></div>
 
-                <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
-                    <li><img th:src="@{/design-site/free-30-instagram-stories-icons60_122607.ico}"
-                             src="../static/design-site/free-30-instagram-stories-icons60_122607.ico"></li>
-                    <li><a th:href="@{/}" href="menu.html" class="nav-link px-2 text-secondary">Super gym</a></li>
-                    <li><a th:href="@{/coaches}" href="coaches.html" class="nav-link px-2 text-white">Coaches</a></li>
-                    <li><a th:href="@{/pricing}" href="pricing.html" class="nav-link px-2 text-white">Pricing</a></li>
-                    <li><a th:href="@{/about}" href="about.html" class="nav-link px-2 text-white">About</a></li>
-                </ul>
-                <div class="text-end">
-                    <a th:href="@{/login}" href="login.html"
-                       class="btn btn-outline-light me-2">
-                        Login
-                    </a>
-                    <a th:href="@{/sign-up}" href="sign-up.html"
-                       class="btn btn-warning">Sign-up
-                    </a>
-                </div>
-            </div>
-        </div>
-    </header>
-</div>
-
-<h1 class="registration-header">Create your account</h1>
+<h1 class="registration-header">Create visitor</h1>
 
 <div class="registration">
-    <form th:action="@{/sign-up}" th:object="${visitor}" method="post">
+    <form th:action="@{/visitors/create}" th:object="${visitor}" method="post">
         <div>
             <label for="firstName" class="name">First name</label>
             <input type="text" class="form-control" id="firstName" th:field="*{name}" required>
@@ -100,31 +70,13 @@
                    th:value="${T(com.alevel.gym.model.Sex).WOMAN}" th:field="*{sex}" required>
             <label class="custom-control-label" for="debit">Woman</label>
             <div class="submit-registration">
-                <button type="submit" class="btn btn-dark">Registration</button>
+                <button type="submit" class="btn btn-dark" >Registration</button>
             </div>
         </div>
     </form>
 </div>
 
-<div th:fragment="footer-container">
-    <div class="container-footer">
-        <footer class="py-3 my-4">
-            <ul class="nav justify-content-center border-bottom pb-3 mb-3">
-                <li class="nav-item"><a th:href="@{/}" href="menu.html" class="nav-link px-2 text-muted">Super
-                    gym</a>
-                </li>
-                <li class="nav-item"><a th:href="@{/coaches}" href="coaches.html"
-                                        class="nav-link px-2 text-muted">Coaches</a>
-                </li>
-                <li class="nav-item"><a th:href="@{/pricing}" href="pricing.html"
-                                        class="nav-link px-2 text-muted">Pricing</a>
-                </li>
-                <li class="nav-item"><a th:href="@{/about}" href="about.html" class="nav-link px-2 text-muted">About</a>
-                </li>
-            </ul>
-            <p class="text-center">© 2022 Company super gym, Inc</p>
-        </footer>
-    </div>
-</div>
+
+<div th:insert="sign-up :: footer-container"></div>
 </body>
 </html>

@@ -24,6 +24,8 @@ public class Coach extends People {
     @Max(45)
     private int age;
     private StatusPeople statusPeople;
+    private String header;
+    private String body;
 
     @OneToMany(mappedBy = "coach",
             cascade = CascadeType.PERSIST,

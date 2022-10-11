@@ -6,16 +6,14 @@ import lombok.Setter;
 import lombok.ToString;
 import org.hibernate.annotations.GenericGenerator;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Getter
 @Setter
 @ToString
 @Entity
 @NoArgsConstructor
+@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 public abstract class People {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO, generator = "UUID")
@@ -23,6 +21,7 @@ public abstract class People {
     protected String id;
     protected String name;
     protected String surname;
+    @Enumerated(EnumType.STRING)
     protected Sex sex;
 
     protected People(String id, String name, String surname, Sex sex) {

@@ -1,5 +1,5 @@
 package com.alevel.gym.model;
 
 public enum StatusPeople {
-    COACH, ADMIN, VISITOR, GUEST, OWNER
+    COACH, ADMIN, VISITOR, OWNER
 }

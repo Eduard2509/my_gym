@@ -11,6 +11,7 @@ public class VisitorMapper {
 
     public static VisitorDTO mapToDTO(Visitor visitor){
         VisitorDTO visitorDTO = new VisitorDTO();
+        visitorDTO.setId(visitor.getId());
         visitorDTO.setName(visitor.getName());
         visitorDTO.setSurname(visitor.getSurname());
         visitorDTO.setAge(visitor.getAge());
@@ -22,6 +23,7 @@ public class VisitorMapper {
 
     public static Visitor mapFromDTO(VisitorDTO visitorDTO){
         final Visitor visitor = new Visitor();
+        visitor.setId(visitorDTO.getId());
         visitor.setName(visitorDTO.getName());
         visitor.setSurname(visitorDTO.getSurname());
         visitor.setAge(visitorDTO.getAge());

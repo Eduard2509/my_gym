@@ -252,4 +252,54 @@ main {
     border-radius: 7px;
 }
 
+.visitors-header {
+    position: relative;
+    font-size: 60px;
+    text-align: center;
+    margin-top: 50px;
+    background: #262626;
+    border-radius: 15px;
+    width: 400px;
+    margin-right: auto;
+    margin-left: auto;
+}
+
+.table-visitors {
+    position: relative;
+    padding-bottom: 50px;
+    width: 80%;
+    margin-right: auto;
+    margin-left: auto;
+}
+
+
+.add-visitor-icon {
+    position: relative;
+    text-align: center;
+    margin-top: 50px;
+    margin-bottom: 25px;
+}
+
+/*#img-config {*/
+    /*min-height: 250px !important;*/
+    /*max-height: 250px !important;*/
+    /*min-width: 200px !important;*/
+    /*max-width: 200px !important;*/
+    /*width: 200px;*/
+    /*height: 250px;*/
+    /*object-fit: cover;*/
+    /*float: left;*/
+/*}*/
+
+.container-image {
+    width: 200px;
+    height: 250px;
+}
+
+/* Resize images */
+.container-image img {
+    width: 100%;
+    height: auto;
+}
+
 

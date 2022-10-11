@@ -7,6 +7,9 @@ import lombok.ToString;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.Set;
 
 @Getter
 @Setter
@@ -20,9 +23,12 @@ public class Subscription {
     private String id;
     private NamesSubscription namesSubscription;
     private double price;
-    @OneToOne
-    @JoinColumn(name = "visitor_id")
-    private Visitor visitor;
+
+    @OneToMany(mappedBy = "subscription",
+            cascade = CascadeType.PERSIST,
+            orphanRemoval = true,
+            fetch = FetchType.EAGER)
+    private Set<Visitor> visitors;
 
     public Subscription(NamesSubscription namesSubscription, double price) {
         this.namesSubscription = namesSubscription;
