@@ -23,43 +23,85 @@
 <h1 class="pricing">Pricing</h1>
 
 <div class="cards">
-    <div class="card" style="width: 18rem;">
-        <img th:src="@{/card-photo/card-weekend.jpg}" src="../static/card-photo/card-weekend.jpg" class="card-img-top" alt="...">
+    <div class="card" style="width: 18rem;" th:each="subscription : ${subscriptions}">
+        <img th:src="${subscription.imageURL}" class="card-img-top" alt="...">
         <div class="card-body">
-            <h5 class="card-title">Membership</h5><br>
-            <h4 class="price">$25/month</h4><br>
-            <p class="card-text">You can visit the gym on weekends.</p><br>
+            <h5 class="card-title" th:text="${subscription.title}"></h5><br>
+            <h4 class="price" th:text="'$' + ${subscription.price} + '/month'"></h4><br>
+            <p class="card-text" th:text="${subscription.description}"></p>
             <a href="#" class="btn btn-dark">Buy now</a>
+            <button class="price-delete-button"
+                    type="button"
+                    data-bs-toggle="modal"
+                    data-bs-target="#delete"
+                    th:attr="onclick=|setAction('@{/pricing/{id}(id = ${subscription.id})}')|"><img
+                    th:src="@{/crud-photo/remove.png}" alt="delete">
+            </button>
+            <div class="price-update">
+                <a th:href="@{/pricing/update/{id}(id=${subscription.id})}"><img
+                        th:src="@{/crud-photo/edit.png}" alt="update"></a>
+            </div>
         </div>
     </div>
-    <div class="card" style="width: 18rem;">
-        <img th:src="@{/card-photo/card-optimal.jpg}" src="../static/card-photo/card-optimal.jpg" class="card-img-top" alt="...">
-        <div class="card-body">
-            <h5 class="card-title">Membership</h5><br>
-            <h4 class="price">$35/month</h4><br>
-            <p class="card-text"> You can visit the gym on Monday, Wednesday and Friday.</p>
-            <a href="#" class="btn btn-dark">Buy now</a>
-        </div>
-    </div>
-    <div class="card" style="width: 18rem;">
-        <img th:src="@{/card-photo/card-weekdays.jpg}" src="../static/card-photo/card-weekdays.jpg" class="card-img-top" alt="...">
-        <div class="card-body">
-            <h5 class="card-title">Membership</h5><br>
-            <h4 class="price">$50/month</h4><br>
-            <p class="card-text">you can visit the gym on weekdays.</p><br>
-            <a href="#" class="btn btn-dark">Buy now</a>
-        </div>
-    </div>
-    <div class="card" style="width: 18rem;">
-        <img th:src="@{/card-photo/card-unlim.jpg}" src="../static/card-photo/card-unlim.jpg" class="card-img-top" alt="...">
-        <div class="card-body">
-            <h5 class="card-title">Membership</h5><br>
-            <h4 class="price">$75/month</h4><br>
-            <p class="card-text">You can visit the gym on any day convenient for you.</p>
-            <a href="#" class="btn btn-dark">Buy now</a>
+
+    <!--        <div class="card" style="width: 18rem;">-->
+    <!--            <img th:src="@{/card-photo/card-optimal.jpg}" class="card-img-top" alt="...">-->
+    <!--            <div class="card-body">-->
+    <!--                <h5 class="card-title">Membership</h5><br>-->
+    <!--                <h4 class="price">$35/month</h4><br>-->
+    <!--                <p class="card-text"> You can visit the gym on Monday, Wednesday and Friday.</p>-->
+    <!--                <a href="#" class="btn btn-dark">Buy now</a>-->
+    <!--            </div>-->
+    <!--        </div>-->
+    <!--        <div class="card" style="width: 18rem;">-->
+    <!--            <img th:src="@{/card-photo/card-weekdays.jpg}" src="../static/card-photo/card-weekdays.jpg" class="card-img-top" alt="...">-->
+    <!--            <div class="card-body">-->
+    <!--                <h5 class="card-title">Membership</h5><br>-->
+    <!--                <h4 class="price">$50/month</h4><br>-->
+    <!--                <p class="card-text">you can visit the gym on weekdays.</p><br>-->
+    <!--                <a href="#" class="btn btn-dark">Buy now</a>-->
+    <!--            </div>-->
+    <!--        </div>-->
+    <!--        <div class="card" style="width: 18rem;">-->
+    <!--            <img th:src="@{/card-photo/card-unlim.jpg}" src="../static/card-photo/card-unlim.jpg" class="card-img-top" alt="...">-->
+    <!--            <div class="card-body">-->
+    <!--                <h5 class="card-title">Membership</h5><br>-->
+    <!--                <h4 class="price">$75/month</h4><br>-->
+    <!--                <p class="card-text">You can visit the gym on any day convenient for you.</p>-->
+    <!--                <a href="#" class="btn btn-dark">Buy now</a>-->
+    <!--            </div>-->
+    <!--        </div>-->
+</div>
+
+<div class="add-visitor-icon">
+    <a th:href="@{/pricing/create}" class="btn btn-success">Add price</a>
+</div>
+
+<div class="modal" id="delete" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Delete price</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p>Are you sure you want to delete the price?</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No</button>
+                <form th:action="@{/pricing/{id}}" name="deleteVisitor" th:method="DELETE">
+                    <button type="submit" class="btn btn-primary">Yes</button>
+                </form>
+            </div>
         </div>
     </div>
 </div>
+
+<script>
+    function setAction(action) {
+        document.deleteVisitor.action = action
+    }
+</script>
 
 <div th:insert="sign-up :: footer-container"></div>
 

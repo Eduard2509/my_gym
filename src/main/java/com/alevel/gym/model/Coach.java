@@ -4,11 +4,9 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
+import org.hibernate.validator.constraints.URL;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.OneToMany;
+import javax.persistence.*;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import java.util.List;
@@ -23,19 +21,22 @@ public class Coach extends People {
     @Min(18)
     @Max(45)
     private int age;
+    @Enumerated(EnumType.STRING)
     private StatusPeople statusPeople;
-    private String header;
-    private String body;
+    private String description;
+    @URL
+    private String imageURL;
 
     @OneToMany(mappedBy = "coach",
             cascade = CascadeType.PERSIST,
-            orphanRemoval = true,
             fetch = FetchType.EAGER)
     private List<Visitor> visitors;
 
-    public Coach(String id, String name, String surname, int age, Sex sex) {
+    public Coach(String id, String name, String surname, int age,  Sex sex, String description, String imageURL) {
         super(id, name, surname, sex);
+        this.description = description;
         this.age = age;
+        this.imageURL = imageURL;
         this.statusPeople = StatusPeople.COACH;
     }
 

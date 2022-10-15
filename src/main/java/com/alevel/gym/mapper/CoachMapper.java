@@ -12,6 +12,9 @@ public final class CoachMapper {
         coachDTO.setName(coach.getName());
         coachDTO.setSurname(coach.getSurname());
         coachDTO.setAge(coach.getAge());
+        coachDTO.setSex(coach.getSex());
+        coachDTO.setDescription(coach.getDescription());
+        coachDTO.setImageURL(coach.getImageURL());
         return coachDTO;
     }
 
@@ -19,7 +22,10 @@ public final class CoachMapper {
         final Coach coach = new Coach();
         coach.setName(coachDTO.getName());
         coach.setSurname(coachDTO.getSurname());
-        coach.setAge(coach.getAge());
+        coach.setAge(coachDTO.getAge());
+        coach.setSex(coachDTO.getSex());
+        coach.setDescription(coachDTO.getDescription());
+        coach.setImageURL(coachDTO.getImageURL());
         return coach;
     }
 }

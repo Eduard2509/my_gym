@@ -8,6 +8,7 @@ import com.alevel.gym.model.Visitor;
 import com.alevel.gym.service.VisitorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -39,17 +40,11 @@ public class MainController {
         return modelAndView;
     }
 
-    @GetMapping("/coaches")
-    public ModelAndView getCoaches(ModelAndView modelAndView) {
-        modelAndView.setViewName("coaches");
-        return modelAndView;
-    }
-
-    @GetMapping("/pricing")
-    public ModelAndView getPricing(ModelAndView modelAndView) {
-        modelAndView.setViewName("pricing");
-        return modelAndView;
-    }
+//    @GetMapping("/pricing")
+//    public ModelAndView getPricing(ModelAndView modelAndView) {
+//        modelAndView.setViewName("pricing");
+//        return modelAndView;
+//    }
 
     @GetMapping("/login")
     public ModelAndView getLogin(ModelAndView modelAndView) {
@@ -69,9 +64,10 @@ public class MainController {
     @PostMapping("/sign-up")
     public ModelAndView registrationVisitor(@ModelAttribute VisitorDTO visitorDTO, ModelAndView modelAndView) {
         System.out.println(visitorDTO);
-        visitorService.save(visitorDTO);
+        visitorService.saveVisitor(visitorDTO);
         modelAndView.addObject("visitor", visitorDTO);
         modelAndView.setViewName("login");
         return modelAndView;
     }
+
 }

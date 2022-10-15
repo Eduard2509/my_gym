@@ -1,0 +1,82 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-spring4-4.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Super gym</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-u1OknCvxWvY5kfmNBILK2hRnQC3Pr17a+RTT6rIHI7NnikvbZlHgTPOOmMi466C8"
+            crossorigin="anonymous"></script>
+    <link rel="icon" th:href="@{/design-site/free-30-instagram-stories-icons60_122607.ico}"
+          href="../static/design-site/free-30-instagram-stories-icons60_122607.ico">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bungee+Spice&display=swap" rel="stylesheet">
+    <link rel="stylesheet" th:href="@{/styles/styles.css}" href="../static/styles/styles.css">
+</head>
+<body>
+<div th:insert="menu :: header-login-visitor"></div>
+
+<h1 class="registration-header">Create coach</h1>
+
+<div class="registration">
+    <form th:action="@{/coaches/create}" th:object="${coach}" method="post">
+        <div>
+            <label for="firstName" class="name">First name</label>
+            <input type="text" class="form-control" id="firstName" th:field="*{name}" required>
+            <div class="invalid-feedback">
+                Valid first name is required.
+            </div>
+        </div>
+        <div>
+            <label for="lastName" class="name">Last name</label>
+            <input type="text" class="form-control" id="lastName" th:field="*{surname}" required>
+            <div class="invalid-feedback">
+                Valid last name is required.
+            </div>
+        </div>
+        <div>
+            <label for="age" class="name">Age</label>
+            <input type="number" class="form-control" id="age" th:field="*{age}" required>
+            <div class="invalid-feedback">
+                Valid age is required.
+            </div>
+        </div>
+        <div>
+            <label for="description" class="name">Description</label>
+            <input type="text" class="form-control" id="description" th:field="*{description}" required>
+            <div class="invalid-feedback">
+                Valid first description is required.
+            </div>
+        </div>
+        <div>
+            <label for="image-url" class="name">Image url</label>
+            <input type="url" class="form-control" id="image-url" th:field="*{imageURL}" required>
+            <div class="invalid-feedback">
+                Valid first url is required.
+            </div>
+        </div>
+
+        <div>
+            <input id="credit" name="paymentMethod" type="radio" class="custom-control-input"
+                   th:value="${T(com.alevel.gym.model.Sex).MAN}" th:field="*{sex}" required>
+            <label class="custom-control-label" for="credit">Man</label>
+        </div>
+
+        <div class="custom-control custom-radio">
+            <input id="debit" name="paymentMethod" type="radio" class="custom-control-input"
+                   th:value="${T(com.alevel.gym.model.Sex).WOMAN}" th:field="*{sex}" required>
+            <label class="custom-control-label" for="debit">Woman</label>
+            <div class="submit-registration">
+                <button type="submit" class="btn btn-dark" >Add coach</button>
+            </div>
+        </div>
+    </form>
+</div>
+
+
+<div th:insert="sign-up :: footer-container"></div>
+</body>
+</html>

@@ -3,6 +3,8 @@ package com.alevel.gym.service;
 import com.alevel.gym.dto.CoachDTO;
 import com.alevel.gym.mapper.CoachMapper;
 import com.alevel.gym.model.Coach;
+import com.alevel.gym.model.StatusPeople;
+import com.alevel.gym.model.Visitor;
 import com.alevel.gym.repository.CoachRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -20,42 +22,30 @@ public class CoachService {
         this.coachRepository = coachRepository;
     }
 
+
     public Iterable<Coach> getAll() {
         return coachRepository.findAll();
     }
 
-    public CoachDTO findById(String id) {
-        Coach byId = coachRepository.findById(id).orElseThrow(IllegalArgumentException::new);
-        return CoachMapper.mapToDTO(byId);
+    public Coach save(CoachDTO coachDTO) {
+        Coach coach = CoachMapper.mapFromDTO(coachDTO);
+        coach.setStatusPeople(StatusPeople.COACH);
+        return coachRepository.save(coach);
     }
 
-    public Optional<Coach> findByName(String name) {
-        return coachRepository.findByName(name);
+    public Coach findById(String id) {
+        return coachRepository.findById(id).orElseThrow(IllegalArgumentException::new);
     }
 
-    public CoachDTO update(String id, CoachDTO coachDTO){
-        final Coach findCoach =
-                coachRepository.findById(id).orElseThrow(IllegalAccessError::new);
-        findCoach.setAge(coachDTO.getAge());
-        findCoach.setName(coachDTO.getName());
-        findCoach.setSurname(coachDTO.getSurname());
-        final Coach coachUpdated = coachRepository.save(findCoach);
-        return CoachMapper.mapToDTO(coachUpdated);
+    public Coach update(Coach coach){
+        coach.setStatusPeople(StatusPeople.COACH);
+        return coachRepository.save(coach);
     }
 
     public void deleteById(String id){
         if (coachRepository.existsById(id)) {
             coachRepository.deleteById(id);
         }
-    }
-
-    public String createDefaultCoach() {
-        final Coach coach = new Coach();
-        coach.setId(UUID.randomUUID().toString());
-        coach.setName("Default name");
-        coach.setSurname("Default surname");
-        coach.setAge(18);
-        return coachRepository.save(coach).getId();
     }
 
 }

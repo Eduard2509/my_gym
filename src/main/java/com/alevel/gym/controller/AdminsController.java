@@ -1,80 +1,75 @@
 package com.alevel.gym.controller;
 
 import com.alevel.gym.dto.VisitorDTO;
-import com.alevel.gym.mapper.VisitorMapper;
 import com.alevel.gym.model.Sex;
 import com.alevel.gym.model.Visitor;
 import com.alevel.gym.service.VisitorService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.validation.Valid;
-import java.security.Principal;
 import java.util.List;
 
 @Controller
-@RequestMapping("/visitors")
-public class VisitorController {
+@RequestMapping("/admins")
+public class AdminsController {
 
     VisitorService visitorService;
 
-    @Autowired
-    public VisitorController(VisitorService visitorService) {
+    public AdminsController(VisitorService visitorService) {
         this.visitorService = visitorService;
     }
 
     @GetMapping
     public ModelAndView getSignUpForm(ModelAndView modelAndView) {
-        Iterable<Visitor> all = visitorService.findAllByStatusPeopleVisitors();
-        modelAndView.addObject("visitors", all);
-        modelAndView.setViewName("visitors");
+        Iterable<Visitor> all = visitorService.findAllByStatusPeopleAdmins();
+        modelAndView.addObject("admins", all);
+        modelAndView.setViewName("admins");
         return modelAndView;
     }
 
     @GetMapping("/create")
     public ModelAndView getSignUp(ModelAndView modelAndView) {
         Visitor visitor = new Visitor();
-        modelAndView.addObject("visitor", visitor);
+        modelAndView.addObject("admin", visitor);
         modelAndView.addObject("sexes", List.of(Sex.MAN.name(), Sex.WOMAN.name()));
-        modelAndView.setViewName("create-visitor");
+        modelAndView.setViewName("create-admin");
         return modelAndView;
     }
 
     @PostMapping("/create")
-    public ModelAndView registrationVisitor(@ModelAttribute VisitorDTO visitorDTO, ModelAndView modelAndView) {
+    public ModelAndView registrationAdmin(@ModelAttribute VisitorDTO visitorDTO, ModelAndView modelAndView) {
         System.out.println(visitorDTO);
-        visitorService.saveVisitor(visitorDTO);
-        modelAndView.addObject("visitor", visitorDTO);
-        modelAndView.setViewName("redirect:/visitors");
+        visitorService.saveAdmin(visitorDTO);
+        modelAndView.addObject("admin", visitorDTO);
+        modelAndView.setViewName("redirect:/admins");
         return modelAndView;
     }
-
 
     @DeleteMapping("/{id}")
     public ModelAndView deleteById(@PathVariable String id, ModelAndView modelAndView) {
         visitorService.deleteById(id);
-        modelAndView.setViewName("redirect:/visitors");
+        modelAndView.setViewName("redirect:/admins");
         return modelAndView;
     }
 
     @PutMapping("/update")
     public ModelAndView update(@Valid Visitor visitor, BindingResult bindingResult, ModelAndView modelAndView) {
-        modelAndView.setViewName("redirect:/visitors");
+        modelAndView.setViewName("redirect:/admins");
         if (bindingResult.hasErrors()) {
             return modelAndView;
         }
-        visitorService.updateVisitor(visitor);
+        visitorService.updateAdmin(visitor);
         return modelAndView;
     }
 
     @GetMapping("/update/{id}")
-    public ModelAndView updateVisitor(@PathVariable String id, ModelAndView modelAndView) {
+    public ModelAndView updateAdmin(@PathVariable String id, ModelAndView modelAndView) {
         Visitor visitor = visitorService.findById(id);
-        modelAndView.addObject("visitor", visitor);
-        modelAndView.setViewName("update-visitor");
+        modelAndView.addObject("admin", visitor);
+        modelAndView.setViewName("update-admin");
         return modelAndView;
     }
 }

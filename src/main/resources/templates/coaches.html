@@ -22,76 +22,66 @@
 <h1 class="coaches-gym">Coaches super gym</h1>
 
 <div class="coaches-portfolio">
-    <div class="col-md-6">
+    <div class="col-md-6" th:each="coach : ${coaches}">
         <div class="one-profile-coach">
             <div class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
                 <div class="col p-4 d-flex flex-column position-static">
-                    <h2>Maria Matvienko</h2>
-                    <strong class="mb-0">Age: 26</strong>
+                    <h2 th:text="${coach.name} + ' ' + ${coach.surname}"></h2>
+                    <strong class="mb-0" th:text="'Age: ' + ${coach.age}"></strong>
                     <br>
-                    <h5>Maria is a fitness trainer with<br> 5 years of experience. She will help you become strong and
-                        resilient.</h5>
+                    <h5 th:text="${coach.description}"></h5>
                 </div>
                 <div class="container-image">
-                    <div class="col-auto d-none d-lg-block" id="img-config">
-                        <img src="https://i.ibb.co/7KVqZHd/coach1.jpg">
+                    <div class="col-auto d-none d-lg-block">
+                        <img th:src="${coach.imageURL}">
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-    <div class="col-md-6">
-        <div class="one-profile-coach">
-            <div class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
-                <div class="col p-4 d-flex flex-column position-static">
-                    <h2>Andriy Bovtushenko</h2>
-                    <strong class="mb-0">Age: 32</strong>
-                    <br>
-                    <h5>
-                        Andriy is a master of sports of Ukraine in powerlifting, with<br> 11 years of training
-                        experience.
-                        He will make your body perfect.</h5>
-                </div>
-                <div class="col-auto d-none d-lg-block">
-                    <img th:src="@{/coach-photo/coach2.jpg}" src="../static/coach-photo/coach2.jpg">
-                </div>
-            </div>
+        <button class="button-delete"
+                type="button"
+                data-bs-toggle="modal"
+                data-bs-target="#delete"
+                th:attr="onclick=|setAction('@{/coaches/{id}(id = ${coach.id})}')|"><img
+                th:src="@{/crud-photo/remove.png}" alt="delete">
+        </button>
+
+        <div>
+            <a th:href="@{/coaches/update/{id}(id=${coach.id})}" class="button-update"><img
+                    th:src="@{/crud-photo/edit.png}" alt="update"></a>
         </div>
     </div>
-    <div class="col-md-6">
-        <div class="one-profile-coach">
-            <div class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
-                <div class="col p-4 d-flex flex-column position-static">
-                    <h2>Artem Korpushenko</h2>
-                    <strong class="mb-0">Age: 29</strong>
-                    <br>
-                    <h5>
-                        Artem is a European champion in powerlifting and has been coaching since he was 19 years old. He
-                        will help you improve your body.</h5>
-                </div>
-                <div class="col-auto d-none d-lg-block">
-                    <img th:src="@{/coach-photo/coach3.jpg}" src="../static/coach-photo/coach3.jpg">
-                </div>
+</div>
+
+<div class="add-visitor-icon">
+    <a th:href="@{/coaches/create}" class="btn btn-success"> Add coach</a>
+</div>
+
+<div class="modal" id="delete" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Delete coach</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-        </div>
-    </div>
-    <div class="col-md-6">
-        <div class="one-profile-coach">
-            <div class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
-                <div class="col p-4 d-flex flex-column position-static">
-                    <h2>Nazar Bondarenko</h2>
-                    <strong class="mb-0">Age: 31</strong>
-                    <br>
-                    <h5>Nazar is a fitness trainer with international certification,<br>8 years of coaching experience.
-                        Will make you a man of steel</h5>
-                </div>
-                <div class="col-auto d-none d-lg-block">
-                    <img th:src="@{/coach-photo/coach4.jpg}" src="../static/coach-photo/coach4.jpg">
-                </div>
+            <div class="modal-body">
+                <p>Are you sure you want to delete the coach?</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No</button>
+                <form th:action="@{/coaches/{id}}" name="deleteVisitor" th:method="DELETE">
+                    <button type="submit" class="btn btn-primary">Yes</button>
+                </form>
             </div>
         </div>
     </div>
 </div>
+
+<script>
+    function setAction(action) {
+        document.deleteVisitor.action = action
+    }
+</script>
 
 <div th:insert="sign-up :: footer-container"></div>
 

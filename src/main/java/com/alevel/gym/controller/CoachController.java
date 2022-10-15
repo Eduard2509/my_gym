@@ -1,16 +1,23 @@
 package com.alevel.gym.controller;
 
 import com.alevel.gym.dto.CoachDTO;
+import com.alevel.gym.dto.VisitorDTO;
 import com.alevel.gym.model.Coach;
+import com.alevel.gym.model.Sex;
+import com.alevel.gym.model.Visitor;
 import com.alevel.gym.service.CoachService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 
+import javax.validation.Valid;
+import java.util.List;
 import java.util.Optional;
 
 @Controller
-@RequestMapping("/coach")
+@RequestMapping("/coaches")
 public class CoachController {
     CoachService coachService;
 
@@ -19,33 +26,55 @@ public class CoachController {
         this.coachService = coachService;
     }
 
-    @GetMapping()
-    public Iterable<Coach> getAll() {
-        return coachService.getAll();
+    @GetMapping
+    public ModelAndView getAllCoaches(ModelAndView modelAndView) {
+        Iterable<Coach> coaches = coachService.getAll();
+        modelAndView.addObject("coaches", coaches);
+        modelAndView.setViewName("coaches");
+        return modelAndView;
     }
 
-    @GetMapping("/find-by-id")
-    public CoachDTO findById(@RequestParam String id){
-        return coachService.findById(id);
+    @DeleteMapping("/{id}")
+    public ModelAndView deleteById(@PathVariable String id, ModelAndView modelAndView) {
+        coachService.deleteById(id);
+        modelAndView.setViewName("redirect:/coaches");
+        return modelAndView;
     }
 
-    @GetMapping("/find-by-name")
-    public Optional<Coach> findByName(@RequestBody String name){
-        return coachService.findByName(name);
-    }
 
     @GetMapping("/create")
-    public String createDefaultCoach() {
-        return coachService.createDefaultCoach();
+    public ModelAndView getSignUp(ModelAndView modelAndView) {
+        Coach coach = new Coach();
+        modelAndView.addObject("coach", coach);
+        modelAndView.addObject("sexes", List.of(Sex.MAN.name(), Sex.WOMAN.name()));
+        modelAndView.setViewName("create-coach");
+        return modelAndView;
     }
 
-    @PutMapping("/update/{id}")
-    public CoachDTO update(@PathVariable String id, @RequestBody CoachDTO coachDTO) {
-        return coachService.update(id, coachDTO);
+    @PostMapping("/create")
+    public ModelAndView registrationCoach(@ModelAttribute CoachDTO coachDTO, ModelAndView modelAndView) {
+        System.out.println(coachDTO);
+        coachService.save(coachDTO);
+        modelAndView.addObject("coach", coachDTO);
+        modelAndView.setViewName("redirect:/coaches");
+        return modelAndView;
     }
 
-    @DeleteMapping
-    public void deleteById(@RequestParam String id) {
-        coachService.deleteById(id);
+    @GetMapping("/update/{id}")
+    public ModelAndView updateCoach(@PathVariable String id, ModelAndView modelAndView) {
+        Coach coach = coachService.findById(id);
+        modelAndView.addObject("coach", coach);
+        modelAndView.setViewName("update-coach");
+        return modelAndView;
+    }
+
+    @PutMapping("/update")
+    public ModelAndView update(@Valid Coach coach, BindingResult bindingResult, ModelAndView modelAndView) {
+        modelAndView.setViewName("redirect:/coaches");
+        if (bindingResult.hasErrors()) {
+            return modelAndView;
+        }
+        coachService.update(coach);
+        return modelAndView;
     }
 }
