@@ -4,6 +4,7 @@ import com.alevel.gym.dto.VisitorDTO;
 import com.alevel.gym.model.Sex;
 import com.alevel.gym.model.Visitor;
 import com.alevel.gym.service.VisitorService;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
@@ -13,6 +14,7 @@ import javax.validation.Valid;
 import java.util.List;
 
 @Controller
+@PreAuthorize("hasAuthority('OWNER')")
 @RequestMapping("/admins")
 public class AdminsController {
 

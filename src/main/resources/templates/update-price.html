@@ -1,5 +1,6 @@
 <!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-spring4-4.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
       xmlns:th="http://www.thymeleaf.org" lang="en">
 <head>
   <meta charset="UTF-8">
@@ -17,11 +18,11 @@
   <link rel="stylesheet" th:href="@{/styles/styles.css}" href="../static/styles/styles.css">
 </head>
 <body>
-<div th:insert="menu :: header-login-visitor"></div>
+<div sec:authorize="hasAnyAuthority('ADMIN', 'OWNER')" th:insert="menu :: header-login-visitor"></div>
 
 <h1 class="registration-header">Update coach</h1>
 
-<div class="registration">
+<div sec:authorize="hasAnyAuthority('ADMIN', 'OWNER')" class="registration">
   <form th:action="@{/pricing/update}" th:object="${subscription}" th:method="PUT">
     <div>
       <input type="hidden" th:field="*{id}" required>

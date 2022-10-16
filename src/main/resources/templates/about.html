@@ -1,5 +1,6 @@
 <!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-spring4-4.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
       xmlns:th="http://www.thymeleaf.org" lang="en">
 <head>
     <meta charset="UTF-8">
@@ -18,7 +19,8 @@
 </head>
 <body>
 
-<div th:insert="sign-up :: header-container"></div>
+<div sec:authorize="isAuthenticated()" th:insert="menu :: header-login-visitor"></div>
+<div sec:authorize="!isAuthenticated()" th:insert="sign-up :: header-container"></div>
 
 <h1 class="about-title">About us</h1>
 <div class="container-about">

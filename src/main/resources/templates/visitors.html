@@ -1,5 +1,6 @@
 <!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-spring4-4.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
       xmlns:th="http://www.thymeleaf.org" xmlns:width="http://www.w3.org/1999/xhtml" lang="en">
 <head>
     <meta charset="UTF-8">
@@ -17,7 +18,7 @@
     <link rel="stylesheet" th:href="@{/styles/styles.css}" href="../static/styles/styles.css">
 </head>
 <body>
-<div th:insert="menu :: header-login-visitor"></div>
+<div sec:authorize="hasAnyAuthority('ADMIN', 'OWNER')" th:insert="menu :: header-login-visitor"></div>
 
 <div class="visitors-header">
     <h1>Visitors</h1>
@@ -27,7 +28,7 @@
     <a th:href="@{/visitors/create}" class="btn btn-info"> Add visitor</a>
 </div>
 
-<div class="table-visitors">
+<div sec:authorize="hasAnyAuthority('ADMIN', 'OWNER')" class="table-visitors">
     <table class="table table-sm table-dark">
         <thead>
         <tr>

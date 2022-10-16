@@ -1,6 +1,7 @@
 <!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-spring4-4.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorator="default" lang="en">
 <head>
@@ -20,49 +21,49 @@
 </head>
 <body>
 
-<!--<div th:insert="sign-up :: header-container"></div>-->
-<div th:fragment="header-login-visitor">
-<header class="p-3 text-bg-dark">
-    <div class="container-header">
-        <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
-            <a href="/" class="d-flex align-items-center mb-2 mb-lg-0 text-white text-decoration-none">
-                <svg class="bi me-2" width="40" height="32" role="img" aria-label="Bootstrap">
-                    <use xlink:href="#bootstrap"></use>
-                </svg>
-            </a>
-
-            <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
-                <li><img th:src="@{/design-site/free-30-instagram-stories-icons60_122607.ico}"
-                         src="../static/design-site/free-30-instagram-stories-icons60_122607.ico"></li>
-                <li><a th:href="@{/}" href="menu.html" class="nav-link px-2 text-secondary">Super gym</a></li>
-                <li><a th:href="@{/coaches}" href="coaches.html" class="nav-link px-2 text-white">Coaches</a></li>
-                <li><a th:href="@{/pricing}" href="pricing.html" class="nav-link px-2 text-white">Pricing</a></li>
-                <li><a th:href="@{/about}" href="about.html" class="nav-link px-2 text-white">About</a></li>
-            </ul>
-
-            <div class="button-visitors">
-                <a th:href="@{/visitors}" href="visitors.html"
-                   class="btn btn-info">Visitors
+<div sec:authorize="!isAuthenticated()" th:insert="sign-up :: header-container"></div>
+<div sec:authorize="isAuthenticated()" th:fragment="header-login-visitor">
+    <header class="p-3 text-bg-dark">
+        <div class="container-header">
+            <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
+                <a href="/" class="d-flex align-items-center mb-2 mb-lg-0 text-white text-decoration-none">
+                    <svg class="bi me-2" width="40" height="32" role="img" aria-label="Bootstrap">
+                        <use xlink:href="#bootstrap"></use>
+                    </svg>
                 </a>
-            </div>
 
-            <div class="button-admins">
-                <a th:href="@{/admins}" href="admins.html"
-                   class="btn btn-success">Admins
-                </a>
-            </div>
+                <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
+                    <li><img th:src="@{/design-site/free-30-instagram-stories-icons60_122607.ico}"
+                             src="../static/design-site/free-30-instagram-stories-icons60_122607.ico"></li>
+                    <li><a th:href="@{/}" href="menu.html" class="nav-link px-2 text-secondary">Super gym</a></li>
+                    <li><a th:href="@{/coaches}" href="coaches.html" class="nav-link px-2 text-white">Coaches</a></li>
+                    <li><a th:href="@{/pricing}" href="pricing.html" class="nav-link px-2 text-white">Pricing</a></li>
+                    <li><a th:href="@{/about}" href="about.html" class="nav-link px-2 text-white">About</a></li>
+                </ul>
 
-            <div class="header-for-login-user">
-                <h6
-                        class="example">example@gmail.com
-                </h6>
-                <a th:href="@{/sign-up}" href="login.html"
-                   class="btn btn-outline-light me-2">Log out
-                </a>
+                <div sec:authorize="hasAnyAuthority('ADMIN', 'OWNER')" class="button-visitors">
+                    <a th:href="@{/visitors}" href="visitors.html"
+                       class="btn btn-dark">Visitors
+                    </a>
+                </div>
+
+                <div sec:authorize="hasAuthority('OWNER')" class="button-admins">
+                    <a th:href="@{/admins}" href="admins.html"
+                       class="btn btn-dark">Admins
+                    </a>
+                </div>
+
+                <div class="header-for-login-user">
+                    <div sec:authorize="isAuthenticated()">
+                        <h6 class="example" sec:authentication="name"></h6>
+                    </div>
+                    <a th:href="@{/logout}"
+                       class="btn btn-outline-light me-2">Log out
+                    </a>
+                </div>
             </div>
         </div>
-    </div>
-</header>
+    </header>
 </div>
 
 <h1 class="global-name">Super Gym</h1>

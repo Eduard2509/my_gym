@@ -1,5 +1,6 @@
 <!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-spring4-4.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
       xmlns:th="http://www.thymeleaf.org" lang="en">
 <head>
     <meta charset="UTF-8">
@@ -17,11 +18,11 @@
     <link rel="stylesheet" th:href="@{/styles/styles.css}" href="../static/styles/styles.css">
 </head>
 <body>
-<div th:insert="menu :: header-login-visitor"></div>
+<div sec:authorize="hasAuthority('OWNER')" th:insert="menu :: header-login-visitor"></div>
 
 <h1 class="registration-header">Update admin</h1>
 
-<div class="registration">
+<div sec:authorize="hasAuthority('OWNER')" class="registration">
     <form th:action="@{/admins/update}" th:object="${admin}" th:method="PUT">
         <div>
             <input type="hidden" class="form-control" id="Id" th:field="*{id}" required>
@@ -72,8 +73,8 @@
             <input id="debit" name="paymentMethod" type="radio" class="custom-control-input"
                    th:value="${T(com.alevel.gym.model.Sex).WOMAN}" th:field="*{sex}" required>
             <label class="custom-control-label" for="debit">Woman</label>
-            <div class="submit-registration">
-                <button type="submit" class="btn btn-dark" >Update admin</button>
+            <div sec:authorize="hasAuthority('OWNER')" class="submit-registration">
+                <button  type="submit" class="btn btn-dark" >Update admin</button>
             </div>
         </div>
     </form>

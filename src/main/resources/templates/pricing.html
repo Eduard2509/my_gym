@@ -1,5 +1,6 @@
 <!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-spring4-4.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
       xmlns:th="http://www.thymeleaf.org" lang="en">
 <head>
     <meta charset="UTF-8">
@@ -18,26 +19,29 @@
 </head>
 <body>
 
-<div th:insert="sign-up :: header-container"></div>
+<div sec:authorize="isAuthenticated()" th:insert="menu :: header-login-visitor"></div>
+<div sec:authorize="!isAuthenticated()" th:insert="sign-up :: header-container"></div>
 
 <h1 class="pricing">Pricing</h1>
 
 <div class="cards">
-    <div class="card" style="width: 18rem;" th:each="subscription : ${subscriptions}">
+    <div class="card" style="width: 18rem;" th:each="subscription : ${subscriptions}"
+         th:if="${subscription.namesSubscription.name != 'NONE'}">
         <img th:src="${subscription.imageURL}" class="card-img-top" alt="...">
         <div class="card-body">
             <h5 class="card-title" th:text="${subscription.title}"></h5><br>
             <h4 class="price" th:text="'$' + ${subscription.price} + '/month'"></h4><br>
             <p class="card-text" th:text="${subscription.description}"></p>
             <a href="#" class="btn btn-dark">Buy now</a>
-            <button class="price-delete-button"
+            <button sec:authorize="hasAnyAuthority('ADMIN', 'OWNER')"
+                    class="price-delete-button"
                     type="button"
                     data-bs-toggle="modal"
                     data-bs-target="#delete"
                     th:attr="onclick=|setAction('@{/pricing/{id}(id = ${subscription.id})}')|"><img
                     th:src="@{/crud-photo/remove.png}" alt="delete">
             </button>
-            <div class="price-update">
+            <div sec:authorize="hasAnyAuthority('ADMIN', 'OWNER')" class="price-update">
                 <a th:href="@{/pricing/update/{id}(id=${subscription.id})}"><img
                         th:src="@{/crud-photo/edit.png}" alt="update"></a>
             </div>
@@ -73,11 +77,11 @@
     <!--        </div>-->
 </div>
 
-<div class="add-visitor-icon">
-    <a th:href="@{/pricing/create}" class="btn btn-success">Add price</a>
+<div class="add-visitor-icon" sec:authorize="hasAnyAuthority('ADMIN', 'OWNER')">
+    <a th:href="@{/pricing/create}" class="btn btn-dark">Add price</a>
 </div>
 
-<div class="modal" id="delete" tabindex="-1">
+<div sec:authorize="hasAnyAuthority('ADMIN', 'OWNER')" class="modal" id="delete" tabindex="-1">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">

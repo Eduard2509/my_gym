@@ -1,5 +1,6 @@
 <!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-spring4-4.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
       xmlns:th="http://www.thymeleaf.org" lang="en">
 <head>
     <meta charset="UTF-8">
@@ -17,7 +18,8 @@
     <link rel="stylesheet" th:href="@{/styles/styles.css}" href="../static/styles/styles.css">
 </head>
 <body>
-<div th:insert="sign-up :: header-container"></div>
+<div sec:authorize="isAuthenticated()" th:insert="menu :: header-login-visitor"></div>
+<div sec:authorize="!isAuthenticated()" th:insert="sign-up :: header-container"></div>
 
 <h1 class="coaches-gym">Coaches super gym</h1>
 
@@ -38,7 +40,7 @@
                 </div>
             </div>
         </div>
-        <button class="button-delete"
+        <button class="button-delete" sec:authorize="hasAnyAuthority('ADMIN', 'OWNER')"
                 type="button"
                 data-bs-toggle="modal"
                 data-bs-target="#delete"
@@ -47,17 +49,17 @@
         </button>
 
         <div>
-            <a th:href="@{/coaches/update/{id}(id=${coach.id})}" class="button-update"><img
+            <a sec:authorize="hasAnyAuthority('ADMIN', 'OWNER')" th:href="@{/coaches/update/{id}(id=${coach.id})}" class="button-update"><img
                     th:src="@{/crud-photo/edit.png}" alt="update"></a>
         </div>
     </div>
 </div>
 
-<div class="add-visitor-icon">
-    <a th:href="@{/coaches/create}" class="btn btn-success"> Add coach</a>
+<div sec:authorize="hasAnyAuthority('ADMIN', 'OWNER')" class="add-visitor-icon">
+    <a th:href="@{/coaches/create}" class="btn btn-dark"> Add coach</a>
 </div>
 
-<div class="modal" id="delete" tabindex="-1">
+<div sec:authorize="hasAnyAuthority('ADMIN', 'OWNER')" class="modal" id="delete" tabindex="-1">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">

@@ -1,5 +1,6 @@
 <!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-spring4-4.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
       xmlns:th="http://www.thymeleaf.org" lang="en">
 <head>
     <meta charset="UTF-8">
@@ -17,14 +18,15 @@
     <link rel="stylesheet" th:href="@{/styles/styles.css}" href="../static/styles/styles.css">
 </head>
 <body>
-<div th:insert="menu :: header-login-visitor"></div>
+
+<div sec:authorize="hasAuthority('OWNER')" th:insert="menu :: header-login-visitor"></div>
 
 <div class="visitors-header">
     <h1>Admins</h1>
 </div>
 
 <div class="add-visitor-icon">
-    <a th:href="@{/admins/create}" class="btn btn-success"> Add admin</a>
+    <a sec:authorize="hasAuthority('OWNER')" th:href="@{/admins/create}" class="btn btn-success"> Add admin</a>
 </div>
 
 <div class="table-visitors">
@@ -49,10 +51,11 @@
                 <td th:text="${admin.email}"></td>
                 <td th:text="${admin.sex}"></td>
                 <td>
-                    <a th:href="@{/admins/update/{id}(id=${admin.id})}" class="btn btn-light"> Update</a>
+                    <a sec:authorize="hasAuthority('OWNER')" th:href="@{/admins/update/{id}(id=${admin.id})}" class="btn btn-light"> Update</a>
                 </td>
                 <td>
-                    <button type="button"
+                    <button sec:authorize="hasAuthority('OWNER')"
+                            type="button"
                             class="btn btn-warning"
                             data-bs-toggle="modal"
                             data-bs-target="#delete"

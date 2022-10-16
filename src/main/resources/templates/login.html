@@ -1,5 +1,6 @@
 <!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-spring4-4.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
       xmlns:th="http://www.thymeleaf.org" lang="en">
 <head>
     <meta charset="UTF-8">
@@ -18,7 +19,7 @@
 </head>
 <body>
 
-<div th:insert="sign-up :: header-container"></div>
+<div sec:authorize="!isAuthenticated()" th:insert="sign-up :: header-container"></div>
 
 <div class="form-sign">
     <main class="form-signin w-100 m-auto">
