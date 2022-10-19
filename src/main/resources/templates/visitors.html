@@ -1,7 +1,9 @@
 <!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-spring4-4.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
-      xmlns:th="http://www.thymeleaf.org" xmlns:width="http://www.w3.org/1999/xhtml" lang="en">
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:width="http://www.w3.org/1999/xhtml"
+      lang="en">
 <head>
     <meta charset="UTF-8">
     <title>Super gym</title>
@@ -32,11 +34,25 @@
     <table class="table table-sm table-dark">
         <thead>
         <tr>
-            <th scope="col" class="pe-5">Name</th>
-            <th scope="col" class="pe-5">Surname</th>
-            <th scope="col" class="pe-5">Age</th>
-            <th scope="col" class="pe-5">Email</th>
+            <th scope="col" class="pe-5">
+                <a th:href="@{'/visitors/' + ${currentPage} + '?sortField=name&sortDirection=' + ${reverseSortDir}}">
+                    Name</a>
+            </th>
+            <th scope="col" class="pe-5">
+                <a th:href="@{'/visitors/' + ${currentPage} + '?sortField=surname&sortDirection=' + ${reverseSortDir}}">
+                    Surname</a>
+            </th>
+            <th scope="col" class="pe-5">
+                <a th:href="@{'/visitors/' + ${currentPage} + '?sortField=age&sortDirection=' + ${reverseSortDir}}">
+                    Age</a>
+            </th>
+            <th scope="col" class="pe-5">
+                <a th:href="@{'/visitors/' + ${currentPage} + '?sortField=name&sortDirection=' + ${reverseSortDir}}">
+                    Email</a>
+            </th>
             <th scope="col" class="pe-5">Sex</th>
+            <th scope="col" class="pe-5">M/ship</th>
+            <th scope="col" class="pe-5">Coach</th>
             <th scope="col" class="pe-5">Update</th>
             <th scope="col" class="pe-5">Delete</th>
             <th scope="col" class="pe-5">LR</th>
@@ -50,6 +66,8 @@
                 <td th:text="${visitor.age}"></td>
                 <td th:text="${visitor.email}"></td>
                 <td th:text="${visitor.sex}"></td>
+                <td th:text="${visitor.subscription.namesSubscription}"></td>
+                <td th:text="${visitor.coach.name}"></td>
                 <td>
                     <a th:href="@{/visitors/update/{id}(id=${visitor.id})}" class="btn btn-light"> Update</a>
                 </td>
@@ -75,6 +93,40 @@
             </tbody>
         </div>
     </table>
+</div>
+<!--    <nav aria-label="..." class="pagination">-->
+<!--        <ul class="pagination pagination-lg">-->
+<!--            <li class="page-item active" aria-current="page">-->
+<!--                <span class="page-link">1</span>-->
+<!--            </li>-->
+<!--            <li class="page-item"><a class="page-link" href="#">2</a></li>-->
+<!--            <li class="page-item"><a class="page-link" href="#">3</a></li>-->
+<!--        </ul>-->
+<!--    </nav>-->
+
+</div>
+
+<div class="pagination" th:if="${totalPages} > 1">
+    <div class="row col-sm-10">
+        <div class="col-sm-2">
+            Visitors: [[${totalItems}]]
+        </div>
+        <div class="col-sm-1">
+                <span th:each="i: ${#numbers.sequence(1, totalPages)}">
+                <a th:if="${currentPage != i}" th:href="@{'/visitors/' + ${i} + '?sortField=' + ${sortField} +
+                '&sortDirection=' + ${sortDirection}}">[[${i}]]</a>
+                <span th:unless="${currentPage != i}">[[${i}]]</span> &nbsp; &nbsp;
+                </span>
+        </div>
+        <div class="col-sm-1">
+            <a th:if="${currentPage <= totalPages && currentPage != 1}" th:href="@{'/visitors/' + ${currentPage - 1} + '?sortField=' + ${sortField} + '&sortDirection=' + ${sortDirection}}">Prev</a>
+            <span th:unless="${currentPage <= totalPages && currentPage != 1}">Prev</span>
+        </div>
+        <div class="col-sm-1">
+            <a th:if="${currentPage < totalPages}" th:href="@{'/visitors/' + ${currentPage + 1} + '?sortField=' + ${sortField} + '&sortDirection=' + ${sortDirection}}">Next</a>
+            <span th:unless="${currentPage < totalPages}">Next</span>
+        </div>
+    </div>
 </div>
 
 <div class="modal" id="delete" tabindex="-1">

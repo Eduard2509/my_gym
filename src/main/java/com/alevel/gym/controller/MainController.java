@@ -2,30 +2,37 @@ package com.alevel.gym.controller;
 
 import com.alevel.gym.dto.VisitorDTO;
 import com.alevel.gym.mapper.VisitorMapper;
-import com.alevel.gym.model.Sex;
-import com.alevel.gym.model.StatusPeople;
-import com.alevel.gym.model.Visitor;
+import com.alevel.gym.model.*;
+import com.alevel.gym.service.CoachService;
+import com.alevel.gym.service.SubscriptionService;
 import com.alevel.gym.service.VisitorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.validation.Valid;
 import java.util.List;
+import java.util.regex.Pattern;
 
 @Controller
 @RequestMapping
 public class MainController {
 
     VisitorService visitorService;
+    CoachService coachService;
+    SubscriptionService subscriptionService;
 
     @Autowired
-    public MainController(VisitorService visitorService) {
+    public MainController(VisitorService visitorService, CoachService coachService, SubscriptionService subscriptionService) {
         this.visitorService = visitorService;
+        this.coachService = coachService;
+        this.subscriptionService = subscriptionService;
     }
 
     @GetMapping("/")
@@ -61,11 +68,20 @@ public class MainController {
         return modelAndView;
     }
 
+
     @PostMapping("/sign-up")
-    public ModelAndView registrationVisitor(@ModelAttribute VisitorDTO visitorDTO, ModelAndView modelAndView) {
-        System.out.println(visitorDTO);
-        visitorService.saveVisitor(visitorDTO);
-        modelAndView.addObject("visitor", visitorDTO);
+    public ModelAndView registrationVisitor(@ModelAttribute @Valid Visitor visitor, BindingResult bindingResult, ModelAndView modelAndView) {
+
+        if (bindingResult.hasErrors()) {
+            modelAndView.setViewName("sign-up");
+            return modelAndView;
+        }
+        Subscription byName = subscriptionService.findByName(NamesSubscription.NONE);
+        Coach noneCoach = coachService.findByName("NONE");
+        visitor.setSubscription(byName);
+        visitor.setCoach(noneCoach);
+        visitorService.saveVisitor(visitor);
+        modelAndView.addObject("visitor", visitor);
         modelAndView.setViewName("login");
         return modelAndView;
     }

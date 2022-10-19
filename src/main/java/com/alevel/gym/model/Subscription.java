@@ -31,7 +31,7 @@ public class Subscription {
     private String imageURL;
 
     @OneToMany(mappedBy = "subscription",
-            cascade = CascadeType.PERSIST,
+            cascade = {CascadeType.REMOVE, CascadeType.MERGE},
             fetch = FetchType.EAGER)
     private Set<Visitor> visitors;
 

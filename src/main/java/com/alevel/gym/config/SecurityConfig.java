@@ -39,7 +39,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/", "/menu", "/login", "/sign-up", "/coaches", "/about", "/pricing",
                         "/crud-photo/*", "/styles/*", "/gym-photo/*", "/design-site/*", "/card-photo/*",
                         "/coach-photo/*").permitAll()
-//                .antMatchers("/visitors/*", "/coaches/*", "/pricing/*").hasAnyAuthority(StatusPeople.ADMIN.name())
                 .anyRequest().authenticated()
                 .and()
                 .formLogin()

@@ -18,6 +18,8 @@ public class VisitorMapper {
         visitorDTO.setEmail(visitor.getEmail());
         visitorDTO.setPassword(visitor.getPassword());
         visitorDTO.setSex(visitor.getSex());
+        visitorDTO.setSubscription(visitor.getSubscription());
+        visitorDTO.setCoach(visitor.getCoach());
         return visitorDTO;
     }
 
@@ -30,6 +32,8 @@ public class VisitorMapper {
         visitor.setEmail(visitorDTO.getEmail());
         visitor.setPassword(visitorDTO.getPassword());
         visitor.setSex(visitorDTO.getSex());
+        visitor.setSubscription(visitorDTO.getSubscription());
+        visitor.setCoach(visitorDTO.getCoach());
         return visitor;
     }
 }

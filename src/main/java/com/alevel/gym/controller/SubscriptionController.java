@@ -2,11 +2,9 @@ package com.alevel.gym.controller;
 
 import com.alevel.gym.dto.CoachDTO;
 import com.alevel.gym.dto.SubscriptionDTO;
-import com.alevel.gym.model.Coach;
-import com.alevel.gym.model.NamesSubscription;
-import com.alevel.gym.model.Sex;
-import com.alevel.gym.model.Subscription;
+import com.alevel.gym.model.*;
 import com.alevel.gym.service.SubscriptionService;
+import com.alevel.gym.service.VisitorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
@@ -14,6 +12,8 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.validation.Valid;
+import java.security.Permission;
+import java.security.Principal;
 import java.util.List;
 import java.util.Optional;
 
@@ -22,10 +22,12 @@ import java.util.Optional;
 public class SubscriptionController {
 
     SubscriptionService subscriptionService;
+    VisitorService visitorService;
 
     @Autowired
-    public SubscriptionController(SubscriptionService subscriptionService) {
+    public SubscriptionController(SubscriptionService subscriptionService, VisitorService visitorService) {
         this.subscriptionService = subscriptionService;
+        this.visitorService = visitorService;
     }
 
     @GetMapping
@@ -80,4 +82,17 @@ public class SubscriptionController {
         subscriptionService.update(subscription);
         return modelAndView;
     }
+
+    @PatchMapping("/update/{id}")
+    public ModelAndView updateMembership(@PathVariable String id ,ModelAndView modelAndView, Principal principal) {
+        String name = principal.getName();
+        Visitor visitor = visitorService.findByEmail(name);
+        System.out.println(visitor);
+        Subscription subscription = subscriptionService.findById(id);
+        visitor.setSubscription(subscription);
+        visitorService.updateVisitor(visitor);
+        modelAndView.setViewName("redirect:/pricing");
+        return modelAndView;
+    }
+
 }

@@ -30,5 +30,4 @@ public abstract class People {
         this.surname = surname;
         this.sex = sex;
     }
-
 }

@@ -267,7 +267,7 @@ main {
 .table-visitors {
     position: relative;
     padding-bottom: 50px;
-    width: 80%;
+    width: 90%;
     margin-right: auto;
     margin-left: auto;
 }
@@ -357,4 +357,12 @@ main {
 .price-delete-button img {
     width: 100%;
     height: auto;
+}
+
+.pagination {
+    position: relative;
+    align-content: center;
+    /*align-items: center;*/
+    justify-content: center;
+    /*left: 500px;*/
 }

@@ -71,6 +71,9 @@
         <div>
             <label for="age" class="name">Age</label>
             <input type="number" class="form-control" id="age" th:field="*{age}" required>
+            <p class="error" th:errors="*{age}" th:if="${#fields.hasErrors('age')}">
+                Error
+            </p>
             <div class="invalid-feedback">
                 Valid age is required.
             </div>
@@ -78,6 +81,9 @@
         <div>
             <label for="email" class="name">Email</label>
             <input type="email" class="form-control" id="email" th:field="*{email}" required>
+            <p class="error" th:errors="*{email}" th:if="${#fields.hasErrors('email')}">
+                Error
+            </p>
             <div class="invalid-feedback">
                 Valid first email is required.
             </div>

@@ -1,6 +1,8 @@
 package com.alevel.gym.dto;
 
+import com.alevel.gym.model.Coach;
 import com.alevel.gym.model.Sex;
+import com.alevel.gym.model.Subscription;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -22,4 +24,6 @@ public class VisitorDTO {
     private String password;
     @Enumerated(EnumType.STRING)
     private Sex sex;
+    private Subscription subscription;
+    private Coach coach;
 }

@@ -10,6 +10,7 @@ import javax.persistence.*;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import java.util.List;
+import java.util.Set;
 
 @Getter
 @Setter
@@ -28,9 +29,9 @@ public class Coach extends People {
     private String imageURL;
 
     @OneToMany(mappedBy = "coach",
-            cascade = CascadeType.PERSIST,
+            cascade = {CascadeType.REMOVE, CascadeType.MERGE},
             fetch = FetchType.EAGER)
-    private List<Visitor> visitors;
+    private Set<Visitor> visitors;
 
     public Coach(String id, String name, String surname, int age,  Sex sex, String description, String imageURL) {
         super(id, name, surname, sex);

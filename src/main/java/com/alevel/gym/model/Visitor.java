@@ -17,17 +17,16 @@ import java.util.Collections;
 
 @Getter
 @Setter
-@ToString
 @Entity
 @NoArgsConstructor
 public class Visitor extends People implements UserDetails {
 
-    @Min(12)
-    @Max(65)
+    @Min(value = 12, message = "You are too young to go to the gym")
+    @Max(value = 65, message = "You are too old to go to the gym")
     private int age;
     @Enumerated(EnumType.STRING)
     private StatusPeople statusPeople;
-    @Email
+    @Email(message = "This email is invalid or taken")
     private String email;
     private String password;
 

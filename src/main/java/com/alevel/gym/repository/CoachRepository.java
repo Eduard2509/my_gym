@@ -7,4 +7,5 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface CoachRepository extends CrudRepository<Coach, String> {
 
+    Coach findByName(String name);
 }

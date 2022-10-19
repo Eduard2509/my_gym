@@ -22,6 +22,9 @@ public class CoachService {
         this.coachRepository = coachRepository;
     }
 
+    public Coach findByName(String name) {
+        return coachRepository.findByName(name);
+    }
 
     public Iterable<Coach> getAll() {
         return coachRepository.findAll();
@@ -37,12 +40,12 @@ public class CoachService {
         return coachRepository.findById(id).orElseThrow(IllegalArgumentException::new);
     }
 
-    public Coach update(Coach coach){
+    public Coach update(Coach coach) {
         coach.setStatusPeople(StatusPeople.COACH);
         return coachRepository.save(coach);
     }
 
-    public void deleteById(String id){
+    public void deleteById(String id) {
         if (coachRepository.existsById(id)) {
             coachRepository.deleteById(id);
         }

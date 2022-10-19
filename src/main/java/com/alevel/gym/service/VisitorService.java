@@ -2,11 +2,17 @@ package com.alevel.gym.service;
 
 import com.alevel.gym.dto.VisitorDTO;
 import com.alevel.gym.mapper.VisitorMapper;
+import com.alevel.gym.model.NamesSubscription;
 import com.alevel.gym.model.StatusPeople;
 import com.alevel.gym.model.Visitor;
+import com.alevel.gym.repository.SubscriptionRepository;
 import com.alevel.gym.repository.VisitorRepository;
 import org.aspectj.bridge.Message;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -21,6 +27,7 @@ public class VisitorService implements UserDetailsService {
     private VisitorRepository visitorRepository;
     private PasswordEncoder passwordEncoder;
 
+    @Autowired
     public VisitorService(VisitorRepository visitorRepository, PasswordEncoder passwordEncoder) {
         this.visitorRepository = visitorRepository;
         this.passwordEncoder = passwordEncoder;
@@ -39,14 +46,29 @@ public class VisitorService implements UserDetailsService {
     }
 
     public void saveVisitor(VisitorDTO visitorDTO) {
-        if(visitorRepository.findByEmail(visitorDTO.getEmail()) == null) {
+        if(visitorRepository.findByEmail(visitorDTO.getEmail()) != null) {
             Visitor visitor = VisitorMapper.mapFromDTO(visitorDTO);
             visitor.setStatusPeople(StatusPeople.VISITOR);
             getPasswordEncoder(visitor);
             visitorRepository.save(visitor);
         } else {
-            throw new IllegalArgumentException("Email");
+            throw new IllegalArgumentException("Email not found");
         }
+    }
+
+    public void saveVisitor(Visitor visitor) {
+        if(visitorRepository.findByEmail(visitor.getEmail()) != null) {
+            visitor.setStatusPeople(StatusPeople.VISITOR);
+            getPasswordEncoder(visitor);
+            visitorRepository.save(visitor);
+        } else {
+            throw new IllegalArgumentException("Email not found");
+        }
+    }
+
+
+    public Visitor findByEmail(String email){
+        return visitorRepository.findByEmail(email);
     }
 
     public void saveAdmin(VisitorDTO visitorDTO) {
@@ -84,6 +106,13 @@ public class VisitorService implements UserDetailsService {
 
     public Visitor findById(String id) {
         return visitorRepository.findById(id).orElseThrow(IllegalAccessError::new);
+    }
+
+    public Page<Visitor> getAllVisitors(int pageNumber, int pageSize, String sortField, String sortDirection) {
+        Sort sort = sortDirection.equalsIgnoreCase(Sort.Direction.ASC.name()) ? Sort.by(sortField).ascending() :
+                Sort.by(sortField).descending();
+        Pageable pageable = PageRequest.of(pageNumber - 1, pageSize, sort);
+        return visitorRepository.findAllByStatusPeople(StatusPeople.VISITOR.name(), pageable);
     }
 
 }

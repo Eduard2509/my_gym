@@ -39,11 +39,13 @@ public class SubscriptionService {
         return subscriptionRepository.findById(id).orElseThrow(IllegalArgumentException::new);
     }
 
+    public Subscription findByName(NamesSubscription name) {
+        return subscriptionRepository.findSubscriptionByNamesSubscription(name);
+    }
 
     public void deleteById(String id){
         if (subscriptionRepository.existsById(id)) {
             subscriptionRepository.deleteById(id);
         }
     }
-
 }

@@ -24,7 +24,7 @@
 <h1 class="coaches-gym">Coaches super gym</h1>
 
 <div class="coaches-portfolio">
-    <div class="col-md-6" th:each="coach : ${coaches}">
+    <div class="col-md-6" th:each="coach : ${coaches}" th:if="${coach.name != 'NONE'}">
         <div class="one-profile-coach">
             <div class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
                 <div class="col p-4 d-flex flex-column position-static">

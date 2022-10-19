@@ -55,12 +55,23 @@
                 Valid first email is required.
             </div>
         </div>
+
         <div>
-            <label for="password" class="name">Password</label>
-            <input type="password" class="form-control" id="password" th:field="*{password}">
-            <div class="invalid-feedback">
-                Please enter a valid password for shipping updates.
-            </div>
+            <label for="vipSelect" class="name">Coach:</label>
+            <select name="coach" id="vipSelect" class="form-select" aria-label="Vip select" th:field="*{coach}">
+                <option th:each="coach : ${coaches}" th:value="${{coach}}"
+                        th:text="${coach.name} + ' ' + ${coach.surname}">
+                </option>
+            </select>
+        </div>
+
+        <div>
+            <label for="membershipSelect" class="name">Membership:</label>
+            <select name="subscription" id="membershipSelect" class="form-select" aria-label="Membership select" th:field="*{subscription}">
+                <option th:each="subscription : ${subscriptions}" th:value="${{subscription}}"
+                        th:text="${subscription.namesSubscription.name}">
+                </option>
+            </select>
         </div>
 
         <div>
@@ -73,9 +84,23 @@
             <input id="debit" name="paymentMethod" type="radio" class="custom-control-input"
                    th:value="${T(com.alevel.gym.model.Sex).WOMAN}" th:field="*{sex}" required>
             <label class="custom-control-label" for="debit">Woman</label>
-            <div class="submit-registration">
-                <button type="submit" class="btn btn-dark" >Update</button>
-            </div>
+        </div>
+
+
+        <div class="submit-registration">
+            <button type="submit" class="btn btn-dark" >Update</button>
+        </div>
+
+        <div class="d-none">
+            <label>
+                <input th:field="*{password}" type="text" th:value="${password}"/>
+            </label>
+<!--            <label>-->
+<!--                <input th:field="*{coach}" type="text" th:value="${coach}"/>-->
+<!--            </label>-->
+<!--            <label>-->
+<!--                <input th:field="*{subscription}" type="text" th:value="${subscription}"/>-->
+<!--            </label>-->
         </div>
     </form>
 </div>
