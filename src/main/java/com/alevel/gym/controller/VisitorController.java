@@ -1,8 +1,6 @@
 package com.alevel.gym.controller;
 
-import com.alevel.gym.Main;
 import com.alevel.gym.dto.VisitorDTO;
-import com.alevel.gym.mapper.VisitorMapper;
 import com.alevel.gym.model.*;
 import com.alevel.gym.service.CoachService;
 import com.alevel.gym.service.SubscriptionService;
@@ -10,21 +8,14 @@ import com.alevel.gym.service.VisitorService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
-import org.springframework.data.web.PageableDefault;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
-import java.security.Principal;
 import java.util.List;
-import java.util.Set;
 
 @Controller
 @PreAuthorize("hasAnyAuthority('ADMIN', 'OWNER')")
@@ -45,14 +36,12 @@ public class VisitorController {
     }
 
     @GetMapping
-    public ModelAndView returnTest(ModelAndView modelAndView) {
+    public ModelAndView getAllAdmins(ModelAndView modelAndView) {
         List<Visitor> allVisitors = visitorService.findAllVisitors();
         modelAndView.addObject("visitors", allVisitors);
         modelAndView.setViewName("visitors");
         return modelAndView;
     }
-
-
 
     @GetMapping("/create")
     public ModelAndView getSignUp(ModelAndView modelAndView) {
@@ -81,7 +70,6 @@ public class VisitorController {
             return modelAndView;
         }
     }
-
 
     @DeleteMapping("/{id}")
     public ModelAndView deleteById(@PathVariable String id, ModelAndView modelAndView) {

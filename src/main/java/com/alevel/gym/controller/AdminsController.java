@@ -28,7 +28,7 @@ public class AdminsController {
 
     @GetMapping
     public ModelAndView getSignUpForm(ModelAndView modelAndView) {
-        Iterable<Visitor> all = visitorService.findAllByStatusPeopleAdmins();
+        List<Visitor> all = visitorService.findAllByStatusPeopleAdmins();
         modelAndView.addObject("admins", all);
         modelAndView.setViewName("admins");
         return modelAndView;

@@ -6,8 +6,6 @@ import com.alevel.gym.model.StatusPeople;
 import com.alevel.gym.model.Visitor;
 import com.alevel.gym.repository.VisitorRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -27,7 +25,6 @@ public class VisitorService implements UserDetailsService {
         this.visitorRepository = visitorRepository;
         this.passwordEncoder = passwordEncoder;
     }
-
 
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
@@ -53,10 +50,6 @@ public class VisitorService implements UserDetailsService {
         visitorRepository.save(visitor);
     }
 
-    public Page<Visitor> findByNameOrSurname(String name, Pageable pageable) {
-        return visitorRepository.findByNameOrSurname(name, pageable);
-    }
-
     public Visitor findByEmail(String email) {
         return visitorRepository.findByEmail(email);
     }
@@ -73,7 +66,7 @@ public class VisitorService implements UserDetailsService {
     }
 
 
-    public Iterable<Visitor> findAllByStatusPeopleAdmins() {
+    public List<Visitor> findAllByStatusPeopleAdmins() {
         return visitorRepository.findAllByStatusPeople(StatusPeople.ADMIN.name());
     }
 
@@ -95,15 +88,7 @@ public class VisitorService implements UserDetailsService {
         return visitorRepository.findById(id).orElseThrow(IllegalAccessError::new);
     }
 
-    public Page<Visitor> getAllVisitors(Pageable pageable) {
-//        Sort sort = sortDirection.equalsIgnoreCase(Sort.Direction.ASC.name()) ? Sort.by(sortField).ascending() : Sort.by(sortField).descending();
-//        Pageable pageable = PageRequest.of(pageNumber - 1, pageSize, sort);
-//        return visitorRepository.findAllByStatusPeople(StatusPeople.VISITOR.name(), pageable);
-        return visitorRepository.findAllByStatusPeople(StatusPeople.VISITOR.name(), pageable);
-    }
-
     public List<Visitor> findAllVisitors() {
-        return visitorRepository.findAllByStatusPeople_Visitor(StatusPeople.VISITOR.name());
+        return visitorRepository.findAllByStatusPeople(StatusPeople.VISITOR.name());
     }
-
 }

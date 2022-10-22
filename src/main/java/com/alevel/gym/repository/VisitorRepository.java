@@ -14,18 +14,7 @@ import java.util.List;
 public interface VisitorRepository extends JpaRepository<Visitor, String> {
 
     @Query(value = "select * from Visitor where status_people = :statusPeople", nativeQuery = true)
-    Iterable<Visitor> findAllByStatusPeople(@Param("statusPeople")String statusPeople);
-
-    @Query(value = "select * from Visitor where status_people = :statusPeople", nativeQuery = true)
-    Page<Visitor> findAllByStatusPeople(@Param("statusPeople")String statusPeople, Pageable pageable);
+    List<Visitor> findAllByStatusPeople(@Param("statusPeople")String statusPeople);
 
     Visitor findByEmail(String email);
-
-    @Query(value = "SELECT * FROM Visitor where name = :name OR surname = :name", nativeQuery = true,
-            countQuery = "SELECT count (*) FROM Visitor where name = :name OR surname = :name")
-    Page<Visitor> findByNameOrSurname(@Param("name") String name, Pageable pageable);
-
-
-    @Query(value = "select * from Visitor where status_people = :statusPeople", nativeQuery = true)
-    List<Visitor> findAllByStatusPeople_Visitor(@Param("statusPeople")String statusPeople);
 }

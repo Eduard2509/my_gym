@@ -359,13 +359,6 @@ main {
     height: auto;
 }
 
-/*.pagination {*/
-/*    text-align: center;*/
-/*    width: 90%;*/
-/*    margin-right: auto;*/
-/*    margin-left: auto;*/
-/*    background: #262626;*/
-/*}*/
 
 .error {
     font-family: Arial;
@@ -389,7 +382,7 @@ main {
 
 .table-html {
     background-color: #262626;
-    width: 95%;
+    width: 80%;
     position: relative;
     padding: 10px;
     margin-right: auto;
