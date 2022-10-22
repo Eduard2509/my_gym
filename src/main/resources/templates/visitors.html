@@ -18,6 +18,12 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Bungee+Spice&display=swap" rel="stylesheet">
     <link rel="stylesheet" th:href="@{/styles/styles.css}" href="../static/styles/styles.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.2.0/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.datatables.net/1.12.1/css/dataTables.bootstrap5.min.css" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+    <script src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.12.1/js/dataTables.bootstrap5.min.js"></script>
+    </script>
 </head>
 <body>
 <div sec:authorize="hasAnyAuthority('ADMIN', 'OWNER')" th:insert="menu :: header-login-visitor"></div>
@@ -30,103 +36,122 @@
     <a th:href="@{/visitors/create}" class="btn btn-info"> Add visitor</a>
 </div>
 
-<div sec:authorize="hasAnyAuthority('ADMIN', 'OWNER')" class="table-visitors">
-    <table class="table table-sm table-dark">
+<!--<div class="find-by-name">-->
+<!--        <div class="input-group mb-3">-->
+<!--            <input type="text" id="find" class="form-control" placeholder="Search by name or surname" aria-label="Recipient's username" aria-describedby="button-addon2">-->
+<!--            <a th:href="@{/visitors/?page=0&size=10}" class="btn btn-secondary" type="submit" id="button-addon2"-->
+<!--               th:onclick="setName()">Search</a>-->
+<!--        </div>-->
+<!--</div>-->
+
+
+<!--<div sec:authorize="hasAnyAuthority('ADMIN', 'OWNER')">-->
+<!--    <table id="example" class="table table-striped" style="width:90%">-->
+<!--        <thead>-->
+<!--        <tr>-->
+<!--            <th>-->
+<!--                <a th:href="@{'/visitors/' + ${currentPage} + '?sortField=name&sortDirection=' + ${reverseSortDir}}">-->
+<!--                    Name</a>-->
+<!--            </th>-->
+<!--            <th>-->
+<!--                <a th:href="@{'/visitors/' + ${currentPage} + '?sortField=surname&sortDirection=' + ${reverseSortDir}}">-->
+<!--                    Surname</a>-->
+<!--            </th>-->
+<!--            <th>-->
+<!--                <a th:href="@{'/visitors/' + ${currentPage} + '?sortField=age&sortDirection=' + ${reverseSortDir}}">-->
+<!--                    Age</a>-->
+<!--            </th>-->
+<!--            <th>-->
+<!--                <a th:href="@{'/visitors/' + ${currentPage} + '?sortField=email&sortDirection=' + ${reverseSortDir}}">-->
+<!--                    Email</a>-->
+<!--            </th>-->
+<!--            <th>Sex</th>-->
+<!--            <th>M/ship</th>-->
+<!--            <th>Coach</th>-->
+<!--            <th>Update</th>-->
+<!--            <th>Delete</th>-->
+<!--            <th>LR</th>-->
+<!--        </tr>-->
+<!--        </thead>-->
+<!--        <div th:each="visitor : ${page.content}">-->
+<!--            <tbody>-->
+<!--            <tr>-->
+<!--                <th th:text="${visitor.name}"></th>-->
+<!--                <td th:text="${visitor.surname}"></td>-->
+<!--                <td th:text="${visitor.age}"></td>-->
+<!--                <td th:text="${visitor.email}"></td>-->
+<!--                <td th:text="${visitor.sex}"></td>-->
+<!--                <td th:text="${visitor.subscription.namesSubscription}"></td>-->
+<!--                <td th:text="${visitor.coach.name}"></td>-->
+<!--                <td>-->
+<!--                    <a th:href="@{/visitors/update/{id}(id=${visitor.id})}" class="btn btn-light"> Update</a>-->
+<!--                </td>-->
+<!--                <td>-->
+<!--                    <button type="button"-->
+<!--                            class="btn btn-warning"-->
+<!--                            data-bs-toggle="modal"-->
+<!--                            data-bs-target="#delete"-->
+<!--                            th:attr="onclick=|setAction('@{/visitors/{id}(id = ${visitor.id})}')|"-->
+<!--                    >Delete-->
+<!--                    </button>-->
+<!--                </td>-->
+<!--                <td>-->
+<!--                    <button type="button"-->
+<!--                            class="btn btn-secondary"-->
+<!--                            data-bs-toggle="modal"-->
+<!--                            data-bs-target="#confirm"-->
+<!--                            th:attr="onclick=|setAction('@{/visitors/{id}(id = ${visitor.id})}')|"-->
+<!--                    >Lock room-->
+<!--                    </button>-->
+<!--                </td>-->
+<!--            </tr>-->
+<!--            </tbody>-->
+<!--        </div>-->
+<!--    </table>-->
+<!--</div>-->
+
+<!--</div>-->
+
+
+<div sec:authorize="hasAnyAuthority('ADMIN', 'OWNER')" class="table-html">
+    <table id="example" class="table table-striped" style="width:90%">
         <thead>
         <tr>
-            <th scope="col" class="pe-5">
-                <a th:href="@{'/visitors/' + ${currentPage} + '?sortField=name&sortDirection=' + ${reverseSortDir}}">
-                    Name</a>
-            </th>
-            <th scope="col" class="pe-5">
-                <a th:href="@{'/visitors/' + ${currentPage} + '?sortField=surname&sortDirection=' + ${reverseSortDir}}">
-                    Surname</a>
-            </th>
-            <th scope="col" class="pe-5">
-                <a th:href="@{'/visitors/' + ${currentPage} + '?sortField=age&sortDirection=' + ${reverseSortDir}}">
-                    Age</a>
-            </th>
-            <th scope="col" class="pe-5">
-                <a th:href="@{'/visitors/' + ${currentPage} + '?sortField=name&sortDirection=' + ${reverseSortDir}}">
-                    Email</a>
-            </th>
-            <th scope="col" class="pe-5">Sex</th>
-            <th scope="col" class="pe-5">M/ship</th>
-            <th scope="col" class="pe-5">Coach</th>
-            <th scope="col" class="pe-5">Update</th>
-            <th scope="col" class="pe-5">Delete</th>
-            <th scope="col" class="pe-5">LR</th>
+            <th>Name</th>
+            <th>Surname</th>
+            <th>Age</th>
+            <th>Email</th>
+            <th>Sex</th>
+            <th>M/ship</th>
+            <th>Coach</th>
+            <th>Update</th>
+            <th>Delete</th>
         </tr>
         </thead>
-        <div class="col-sm-2" th:each="visitor : ${visitors}">
-            <tbody>
-            <tr>
-                <th scope="row" th:text="${visitor.name}"></th>
-                <td th:text="${visitor.surname}"></td>
-                <td th:text="${visitor.age}"></td>
-                <td th:text="${visitor.email}"></td>
-                <td th:text="${visitor.sex}"></td>
-                <td th:text="${visitor.subscription.namesSubscription}"></td>
-                <td th:text="${visitor.coach.name}"></td>
-                <td>
-                    <a th:href="@{/visitors/update/{id}(id=${visitor.id})}" class="btn btn-light"> Update</a>
-                </td>
-                <td>
-                    <button type="button"
-                            class="btn btn-warning"
-                            data-bs-toggle="modal"
-                            data-bs-target="#delete"
-                            th:attr="onclick=|setAction('@{/visitors/{id}(id = ${visitor.id})}')|"
-                    >Delete
-                    </button>
-                </td>
-                <td>
-                    <button type="button"
-                            class="btn btn-secondary"
-                            data-bs-toggle="modal"
-                            data-bs-target="#confirm"
-                            th:attr="onclick=|setAction('@{/visitors/{id}(id = ${visitor.id})}')|"
-                    >Lock room
-                    </button>
-                </td>
-            </tr>
-            </tbody>
-        </div>
+        <tbody>
+        <tr th:each="visitor : ${visitors}">
+            <th th:text="${visitor.name}"></th>
+            <td th:text="${visitor.surname}"></td>
+            <td th:text="${visitor.age}"></td>
+            <td th:text="${visitor.email}"></td>
+            <td th:text="${visitor.sex}"></td>
+            <td th:text="${visitor.subscription.namesSubscription}"></td>
+            <td th:text="${visitor.coach.name}"></td>
+            <td>
+                <a th:href="@{/visitors/update/{id}(id=${visitor.id})}" class="btn btn-light"> Update</a>
+            </td>
+            <td>
+                <button type="button"
+                        class="btn btn-warning"
+                        data-bs-toggle="modal"
+                        data-bs-target="#delete"
+                        th:attr="onclick=|setAction('@{/visitors/{id}(id = ${visitor.id})}')|"
+                >Delete
+                </button>
+            </td>
+        </tr>
+        </tbody>
     </table>
-</div>
-<!--    <nav aria-label="..." class="pagination">-->
-<!--        <ul class="pagination pagination-lg">-->
-<!--            <li class="page-item active" aria-current="page">-->
-<!--                <span class="page-link">1</span>-->
-<!--            </li>-->
-<!--            <li class="page-item"><a class="page-link" href="#">2</a></li>-->
-<!--            <li class="page-item"><a class="page-link" href="#">3</a></li>-->
-<!--        </ul>-->
-<!--    </nav>-->
-
-</div>
-
-<div class="pagination" th:if="${totalPages} > 1">
-    <div class="row col-sm-10">
-        <div class="col-sm-2">
-            Visitors: [[${totalItems}]]
-        </div>
-        <div class="col-sm-1">
-                <span th:each="i: ${#numbers.sequence(1, totalPages)}">
-                <a th:if="${currentPage != i}" th:href="@{'/visitors/' + ${i} + '?sortField=' + ${sortField} +
-                '&sortDirection=' + ${sortDirection}}">[[${i}]]</a>
-                <span th:unless="${currentPage != i}">[[${i}]]</span> &nbsp; &nbsp;
-                </span>
-        </div>
-        <div class="col-sm-1">
-            <a th:if="${currentPage <= totalPages && currentPage != 1}" th:href="@{'/visitors/' + ${currentPage - 1} + '?sortField=' + ${sortField} + '&sortDirection=' + ${sortDirection}}">Prev</a>
-            <span th:unless="${currentPage <= totalPages && currentPage != 1}">Prev</span>
-        </div>
-        <div class="col-sm-1">
-            <a th:if="${currentPage < totalPages}" th:href="@{'/visitors/' + ${currentPage + 1} + '?sortField=' + ${sortField} + '&sortDirection=' + ${sortDirection}}">Next</a>
-            <span th:unless="${currentPage < totalPages}">Next</span>
-        </div>
-    </div>
 </div>
 
 <div class="modal" id="delete" tabindex="-1">
@@ -150,9 +175,25 @@
 </div>
 
 <script>
+
+    // function setName() {
+    //     const findElement = document.getElementById('find')
+    //     const value = findElement.value
+    //     let anchor = document.getElementById('button-addon2')
+    //     let href = anchor.getAttribute('href')
+    //     if (value === '' || value === null) {
+    //         anchor.setAttribute("href", href)
+    //     }
+    //     anchor.setAttribute("href", `${href}&value=${value}`)
+    // }
+
     function setAction(action) {
         document.deleteVisitor.action = action
     }
+
+    $(document).ready(function () {
+        $('#example').DataTable();
+    });
 </script>
 
 <div th:insert="sign-up :: footer-container"></div>

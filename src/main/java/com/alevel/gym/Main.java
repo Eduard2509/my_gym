@@ -8,9 +8,10 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
 public class Main {
-	private static final Logger LOGGER = LoggerFactory.getLogger(Main.class);
-	public static void main(String[] args) {
-		LOGGER.error("Program starting...");
-		SpringApplication.run(Main.class, args);
-	}
+    private static final Logger LOGGER = LoggerFactory.getLogger(Main.class);
+
+    public static void main(String[] args) {
+        LOGGER.info("Program starting...");
+        SpringApplication.run(Main.class, args);
+    }
 }

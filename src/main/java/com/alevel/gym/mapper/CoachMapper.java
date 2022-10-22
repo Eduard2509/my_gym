@@ -5,20 +5,10 @@ import com.alevel.gym.model.Coach;
 
 public final class CoachMapper {
 
-    private CoachMapper() {}
-
-    public static CoachDTO mapToDTO(Coach coach){
-        CoachDTO coachDTO = new CoachDTO();
-        coachDTO.setName(coach.getName());
-        coachDTO.setSurname(coach.getSurname());
-        coachDTO.setAge(coach.getAge());
-        coachDTO.setSex(coach.getSex());
-        coachDTO.setDescription(coach.getDescription());
-        coachDTO.setImageURL(coach.getImageURL());
-        return coachDTO;
+    private CoachMapper() {
     }
 
-    public static Coach mapFromDTO(CoachDTO coachDTO){
+    public static Coach mapFromDTO(CoachDTO coachDTO) {
         final Coach coach = new Coach();
         coach.setName(coachDTO.getName());
         coach.setSurname(coachDTO.getSurname());

@@ -94,7 +94,7 @@ main {
     top: 70px;
 }
 
-.col-md-6 {
+.coach-prof {
     background: darkslategrey;
     background-size: 870px 315px;
     position: relative;
@@ -359,10 +359,40 @@ main {
     height: auto;
 }
 
-.pagination {
+/*.pagination {*/
+/*    text-align: center;*/
+/*    width: 90%;*/
+/*    margin-right: auto;*/
+/*    margin-left: auto;*/
+/*    background: #262626;*/
+/*}*/
+
+.error {
+    font-family: Arial;
+    color: red;
+    background: #262626;
+    border-radius: 15px;
+}
+
+.find-by-name {
+    padding-left: 75px;
+    width: 500px;
+}
+
+.error-img {
     position: relative;
-    align-content: center;
-    /*align-items: center;*/
-    justify-content: center;
-    /*left: 500px;*/
+    text-align: center;
+    margin-top: 50px;
+    margin-right: auto;
+    margin-left: auto;
+}
+
+.table-html {
+    background-color: #262626;
+    width: 95%;
+    position: relative;
+    padding: 10px;
+    margin-right: auto;
+    margin-left: auto;
+    border-radius: 15px;
 }

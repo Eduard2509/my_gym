@@ -1,13 +1,19 @@
 package com.alevel.gym.controller;
 
+import com.alevel.gym.Main;
 import com.alevel.gym.dto.VisitorDTO;
 import com.alevel.gym.mapper.VisitorMapper;
 import com.alevel.gym.model.*;
 import com.alevel.gym.service.CoachService;
 import com.alevel.gym.service.SubscriptionService;
 import com.alevel.gym.service.VisitorService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
@@ -18,11 +24,14 @@ import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import java.security.Principal;
 import java.util.List;
+import java.util.Set;
 
 @Controller
 @PreAuthorize("hasAnyAuthority('ADMIN', 'OWNER')")
 @RequestMapping("/visitors")
 public class VisitorController {
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(VisitorController.class);
 
     VisitorService visitorService;
     SubscriptionService subscriptionService;
@@ -35,38 +44,15 @@ public class VisitorController {
         this.coachService = coachService;
     }
 
-    @GetMapping("/{pageNumber}")
-    public ModelAndView getPageVisitors(@PathVariable(value = "pageNumber") int pageNumber,
-                                        @RequestParam("sortField") String sortField,
-                                        @RequestParam("sortDirection") String sortDirection,
-                                        ModelAndView modelAndView) {
-        int pageSize = 10;
-
-        Page<Visitor> page = visitorService.getAllVisitors(pageNumber, pageSize, sortField, sortDirection);
-        List<Visitor> visitors = page.getContent();
-        modelAndView.addObject("currentPage", pageNumber);
-        modelAndView.addObject("totalPages", page.getTotalPages());
-        modelAndView.addObject("totalItems", page.getTotalElements());
-        modelAndView.addObject("sortField", sortField);
-        modelAndView.addObject("sortDirection", sortDirection);
-        modelAndView.addObject("reverseSortDir", sortDirection.equals("asc") ? "desc" : "asc");
-        modelAndView.addObject("visitors", visitors);
+    @GetMapping
+    public ModelAndView returnTest(ModelAndView modelAndView) {
+        List<Visitor> allVisitors = visitorService.findAllVisitors();
+        modelAndView.addObject("visitors", allVisitors);
         modelAndView.setViewName("visitors");
         return modelAndView;
     }
 
-    @GetMapping
-    public ModelAndView getVisitors(ModelAndView modelAndView) {
-        return getPageVisitors(1, "name", "asc", modelAndView);
-    }
 
-//    @GetMapping
-//    public ModelAndView getSignUpForm(ModelAndView modelAndView) {
-//        Iterable<Visitor> all = visitorService.findAllByStatusPeopleVisitors();
-//        modelAndView.addObject("visitors", all);
-//        modelAndView.setViewName("visitors");
-//        return modelAndView;
-//    }
 
     @GetMapping("/create")
     public ModelAndView getSignUp(ModelAndView modelAndView) {
@@ -79,15 +65,21 @@ public class VisitorController {
 
     @PostMapping("/create")
     public ModelAndView registrationVisitor(@ModelAttribute VisitorDTO visitorDTO, ModelAndView modelAndView) {
-        System.out.println(visitorDTO);
-        Subscription byName = subscriptionService.findByName(NamesSubscription.NONE);
-        Coach noneCoach = coachService.findByName("NONE");
-        visitorDTO.setSubscription(byName);
-        visitorDTO.setCoach(noneCoach);
-        visitorService.saveVisitor(visitorDTO);
-        modelAndView.addObject("visitor", visitorDTO);
-        modelAndView.setViewName("redirect:/visitors");
-        return modelAndView;
+        if (visitorService.findByEmail(visitorDTO.getEmail()) == null) {
+            Subscription byName = subscriptionService.findByName(NamesSubscription.NONE);
+            Coach noneCoach = coachService.findByName("NONE");
+            visitorDTO.setSubscription(byName);
+            visitorDTO.setCoach(noneCoach);
+            visitorService.saveVisitor(visitorDTO);
+            LOGGER.info("Visitor created {}", visitorDTO.getName());
+            modelAndView.addObject("visitor", visitorDTO);
+            modelAndView.setViewName("redirect:/visitors");
+            return modelAndView;
+        } else {
+            modelAndView.setViewName("redirect:/visitors/create");
+            LOGGER.info("Fail create visitor");
+            return modelAndView;
+        }
     }
 
 
@@ -98,6 +90,7 @@ public class VisitorController {
         visitor.setCoach(null);
         visitorService.deleteById(id);
         modelAndView.setViewName("redirect:/visitors");
+        LOGGER.info("Visitor deleted {}", visitor.getName());
         return modelAndView;
     }
 
@@ -110,6 +103,7 @@ public class VisitorController {
             return modelAndView;
         }
         visitorService.updateVisitor(visitor);
+        LOGGER.info("Visitor updated {}", visitor.getName());
         return modelAndView;
     }
 

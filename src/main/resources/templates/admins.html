@@ -2,21 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
       xmlns:th="http://www.thymeleaf.org" lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Super gym</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet"
-          integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js"
-            integrity="sha384-u1OknCvxWvY5kfmNBILK2hRnQC3Pr17a+RTT6rIHI7NnikvbZlHgTPOOmMi466C8"
-            crossorigin="anonymous"></script>
-    <link rel="icon" th:href="@{/design-site/free-30-instagram-stories-icons60_122607.ico}"
-          href="../static/design-site/free-30-instagram-stories-icons60_122607.ico">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Bungee+Spice&display=swap" rel="stylesheet">
-    <link rel="stylesheet" th:href="@{/styles/styles.css}" href="../static/styles/styles.css">
-</head>
+<head th:insert="menu :: head-menu"></head>
 <body>
 
 <div sec:authorize="hasAuthority('OWNER')" th:insert="menu :: header-login-visitor"></div>
@@ -51,7 +37,8 @@
                 <td th:text="${admin.email}"></td>
                 <td th:text="${admin.sex}"></td>
                 <td>
-                    <a sec:authorize="hasAuthority('OWNER')" th:href="@{/admins/update/{id}(id=${admin.id})}" class="btn btn-light"> Update</a>
+                    <a sec:authorize="hasAuthority('OWNER')" th:href="@{/admins/update/{id}(id=${admin.id})}"
+                       class="btn btn-light"> Update</a>
                 </td>
                 <td>
                     <button sec:authorize="hasAuthority('OWNER')"

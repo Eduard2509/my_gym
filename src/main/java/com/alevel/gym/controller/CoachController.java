@@ -1,11 +1,11 @@
 package com.alevel.gym.controller;
 
 import com.alevel.gym.dto.CoachDTO;
-import com.alevel.gym.dto.VisitorDTO;
 import com.alevel.gym.model.Coach;
 import com.alevel.gym.model.Sex;
-import com.alevel.gym.model.Visitor;
 import com.alevel.gym.service.CoachService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
@@ -14,11 +14,11 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.validation.Valid;
 import java.util.List;
-import java.util.Optional;
 
 @Controller
 @RequestMapping("/coaches")
 public class CoachController {
+    private static final Logger LOGGER = LoggerFactory.getLogger(CoachController.class);
     CoachService coachService;
 
     @Autowired
@@ -37,6 +37,7 @@ public class CoachController {
     @DeleteMapping("/{id}")
     public ModelAndView deleteById(@PathVariable String id, ModelAndView modelAndView) {
         coachService.deleteById(id);
+        LOGGER.info("Coach " + id + " deleted successfully");
         modelAndView.setViewName("redirect:/coaches");
         return modelAndView;
     }
@@ -55,6 +56,7 @@ public class CoachController {
     public ModelAndView registrationCoach(@ModelAttribute CoachDTO coachDTO, ModelAndView modelAndView) {
         System.out.println(coachDTO);
         coachService.save(coachDTO);
+        LOGGER.info("Coach created {}", coachDTO.getName());
         modelAndView.addObject("coach", coachDTO);
         modelAndView.setViewName("redirect:/coaches");
         return modelAndView;
@@ -75,6 +77,7 @@ public class CoachController {
             return modelAndView;
         }
         coachService.update(coach);
+        LOGGER.info("Visitor updated {}", coach.getName());
         return modelAndView;
     }
 }

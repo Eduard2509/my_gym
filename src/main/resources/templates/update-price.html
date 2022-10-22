@@ -2,93 +2,87 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
       xmlns:th="http://www.thymeleaf.org" lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>Super gym</title>
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js"
-          integrity="sha384-u1OknCvxWvY5kfmNBILK2hRnQC3Pr17a+RTT6rIHI7NnikvbZlHgTPOOmMi466C8"
-          crossorigin="anonymous"></script>
-  <link rel="icon" th:href="@{/design-site/free-30-instagram-stories-icons60_122607.ico}"
-        href="../static/design-site/free-30-instagram-stories-icons60_122607.ico">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Bungee+Spice&display=swap" rel="stylesheet">
-  <link rel="stylesheet" th:href="@{/styles/styles.css}" href="../static/styles/styles.css">
-</head>
+
+<
+<head th:insert="menu :: head-menu"></head>
+
 <body>
 <div sec:authorize="hasAnyAuthority('ADMIN', 'OWNER')" th:insert="menu :: header-login-visitor"></div>
 
 <h1 class="registration-header">Update coach</h1>
 
 <div sec:authorize="hasAnyAuthority('ADMIN', 'OWNER')" class="registration">
-  <form th:action="@{/pricing/update}" th:object="${subscription}" th:method="PUT">
-    <div>
-      <input type="hidden" th:field="*{id}" required>
-    </div>
-    <div>
-      <label for="firstName" class="name">Title</label>
-      <input type="text" class="form-control" id="firstName" th:field="*{title}" required>
-      <div class="invalid-feedback">
-        Valid first name is required.
-      </div>
-    </div>
-    <div>
-      <label for="lastName" class="name">Price</label>
-      <input type="number" class="form-control" id="lastName" th:field="*{price}" required>
-      <div class="invalid-feedback">
-        Valid last name is required.
-      </div>
-    </div>
-    <div>
-      <label for="description" class="name">Description</label>
-      <input type="text" class="form-control" id="description" th:field="*{description}" required>
-      <div class="invalid-feedback">
-        Valid description is required.
-      </div>
-    </div>
-    <div>
-      <label for="image-url" class="name">Image url</label>
-      <input type="url" class="form-control" id="image-url" th:field="*{imageURL}" required>
-      <div class="invalid-feedback">
-        Valid url is required.
-      </div>
-    </div>
+    <form th:action="@{/pricing/update}" th:object="${subscription}" th:method="PUT">
+        <div>
+            <input type="hidden" th:field="*{id}" required>
+        </div>
+        <div>
+            <label for="firstName" class="name">Title</label>
+            <input type="text" class="form-control" id="firstName" th:field="*{title}" required>
+            <div class="invalid-feedback">
+                Valid first name is required.
+            </div>
+        </div>
+        <div>
+            <label for="lastName" class="name">Price</label>
+            <input type="number" class="form-control" id="lastName" th:field="*{price}" required>
+            <div class="invalid-feedback">
+                Valid last name is required.
+            </div>
+        </div>
+        <div>
+            <label for="description" class="name">Description</label>
+            <input type="text" class="form-control" id="description" th:field="*{description}" required>
+            <div class="invalid-feedback">
+                Valid description is required.
+            </div>
+        </div>
+        <div>
+            <label for="image-url" class="name">Image url</label>
+            <input type="url" class="form-control" id="image-url" th:field="*{imageURL}" required>
+            <div class="invalid-feedback">
+                Valid url is required.
+            </div>
+        </div>
 
-    <div>
-      <input id="credit" name="paymentMethod" type="radio" class="custom-control-input"
-             th:value="${T(com.alevel.gym.model.NamesSubscription).NONE}" th:field="*{namesSubscription}" required>
-      <label class="custom-control-label" for="credit">None</label>
-    </div>
+        <div>
+            <input id="credit" name="paymentMethod" type="radio" class="custom-control-input"
+                   th:value="${T(com.alevel.gym.model.NamesSubscription).NONE}" th:field="*{namesSubscription}"
+                   required>
+            <label class="custom-control-label" for="credit">None</label>
+        </div>
 
-    <div>
-      <input id="weekend" name="paymentMethod" type="radio" class="custom-control-input"
-             th:value="${T(com.alevel.gym.model.NamesSubscription).WEEKEND}" th:field="*{namesSubscription}" required>
-      <label class="custom-control-label" for="weekend">Weekend</label>
-    </div>
+        <div>
+            <input id="weekend" name="paymentMethod" type="radio" class="custom-control-input"
+                   th:value="${T(com.alevel.gym.model.NamesSubscription).WEEKEND}" th:field="*{namesSubscription}"
+                   required>
+            <label class="custom-control-label" for="weekend">Weekend</label>
+        </div>
 
-    <div>
-      <input id="weekdays" name="paymentMethod" type="radio" class="custom-control-input"
-             th:value="${T(com.alevel.gym.model.NamesSubscription).WEEKDAYS}" th:field="*{namesSubscription}" required>
-      <label class="custom-control-label" for="weekdays">Weekdays</label>
-    </div>
+        <div>
+            <input id="weekdays" name="paymentMethod" type="radio" class="custom-control-input"
+                   th:value="${T(com.alevel.gym.model.NamesSubscription).WEEKDAYS}" th:field="*{namesSubscription}"
+                   required>
+            <label class="custom-control-label" for="weekdays">Weekdays</label>
+        </div>
 
-    <div>
-      <input id="optimal" name="paymentMethod" type="radio" class="custom-control-input"
-             th:value="${T(com.alevel.gym.model.NamesSubscription).OPTIMAL}" th:field="*{namesSubscription}" required>
-      <label class="custom-control-label" for="weekdays">Optimal</label>
-    </div>
+        <div>
+            <input id="optimal" name="paymentMethod" type="radio" class="custom-control-input"
+                   th:value="${T(com.alevel.gym.model.NamesSubscription).OPTIMAL}" th:field="*{namesSubscription}"
+                   required>
+            <label class="custom-control-label" for="weekdays">Optimal</label>
+        </div>
 
-    <div class="custom-control custom-radio">
-      <input id="debit" name="paymentMethod" type="radio" class="custom-control-input"
-             th:value="${T(com.alevel.gym.model.NamesSubscription).UNLIMITED}" th:field="*{namesSubscription}" required>
-      <label class="custom-control-label" for="debit">Unlimited</label>
-      <div class="submit-registration">
-        <button type="submit" class="btn btn-dark" >Update price</button>
-      </div>
-    </div>
-  </form>
+        <div class="custom-control custom-radio">
+            <input id="debit" name="paymentMethod" type="radio" class="custom-control-input"
+                   th:value="${T(com.alevel.gym.model.NamesSubscription).UNLIMITED}" th:field="*{namesSubscription}"
+                   required>
+            <label class="custom-control-label" for="debit">Unlimited</label>
+            <div class="submit-registration">
+                <button type="submit" class="btn btn-dark">Update price</button>
+            </div>
+        </div>
+    </form>
 </div>
 
 

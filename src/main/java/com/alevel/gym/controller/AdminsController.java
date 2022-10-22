@@ -4,6 +4,8 @@ import com.alevel.gym.dto.VisitorDTO;
 import com.alevel.gym.model.Sex;
 import com.alevel.gym.model.Visitor;
 import com.alevel.gym.service.VisitorService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
@@ -17,7 +19,7 @@ import java.util.List;
 @PreAuthorize("hasAuthority('OWNER')")
 @RequestMapping("/admins")
 public class AdminsController {
-
+    private static final Logger LOGGER = LoggerFactory.getLogger(AdminsController.class);
     VisitorService visitorService;
 
     public AdminsController(VisitorService visitorService) {
@@ -47,6 +49,7 @@ public class AdminsController {
         visitorService.saveAdmin(visitorDTO);
         modelAndView.addObject("admin", visitorDTO);
         modelAndView.setViewName("redirect:/admins");
+        LOGGER.info("Admin created {}", visitorDTO.getName());
         return modelAndView;
     }
 
@@ -54,6 +57,7 @@ public class AdminsController {
     public ModelAndView deleteById(@PathVariable String id, ModelAndView modelAndView) {
         visitorService.deleteById(id);
         modelAndView.setViewName("redirect:/admins");
+        LOGGER.info("Admin: " + id + " deleted");
         return modelAndView;
     }
 
@@ -64,6 +68,7 @@ public class AdminsController {
             return modelAndView;
         }
         visitorService.updateAdmin(visitor);
+        LOGGER.info("Admin updated {}", visitor.getName());
         return modelAndView;
     }
 

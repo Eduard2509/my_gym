@@ -4,13 +4,9 @@ import com.alevel.gym.dto.CoachDTO;
 import com.alevel.gym.mapper.CoachMapper;
 import com.alevel.gym.model.Coach;
 import com.alevel.gym.model.StatusPeople;
-import com.alevel.gym.model.Visitor;
 import com.alevel.gym.repository.CoachRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import java.util.Optional;
-import java.util.UUID;
 
 @Service
 public class CoachService {

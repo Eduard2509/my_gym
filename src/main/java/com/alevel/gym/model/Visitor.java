@@ -3,10 +3,8 @@ package com.alevel.gym.model;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import lombok.ToString;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.access.expression.SecurityExpressionRoot;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;
@@ -26,7 +24,7 @@ public class Visitor extends People implements UserDetails {
     private int age;
     @Enumerated(EnumType.STRING)
     private StatusPeople statusPeople;
-    @Email(message = "This email is invalid or taken")
+    @Email(message = "This email is invalid")
     private String email;
     private String password;
 

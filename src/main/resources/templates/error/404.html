@@ -1,0 +1,18 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-spring4-4.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:width="http://www.w3.org/1999/xhtml"
+      lang="en">
+
+<head th:insert="menu :: head-menu"></head>
+
+<body>
+<div sec:authorize="isAuthenticated()" th:insert="menu :: header-login-visitor"></div>
+<div sec:authorize="!isAuthenticated()" th:insert="sign-up :: header-container"></div>
+<div class="error-img">
+    <img src="/errors/404.gif">
+</div>
+<div th:insert="sign-up :: footer-container"></div>
+</body>
+</html>

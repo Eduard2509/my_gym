@@ -1,10 +1,12 @@
 package com.alevel.gym.controller;
 
-import com.alevel.gym.dto.CoachDTO;
-import com.alevel.gym.dto.SubscriptionDTO;
-import com.alevel.gym.model.*;
+import com.alevel.gym.model.NamesSubscription;
+import com.alevel.gym.model.Subscription;
+import com.alevel.gym.model.Visitor;
 import com.alevel.gym.service.SubscriptionService;
 import com.alevel.gym.service.VisitorService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
@@ -12,14 +14,14 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.validation.Valid;
-import java.security.Permission;
 import java.security.Principal;
 import java.util.List;
-import java.util.Optional;
 
 @Controller
 @RequestMapping("/pricing")
 public class SubscriptionController {
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(SubscriptionController.class);
 
     SubscriptionService subscriptionService;
     VisitorService visitorService;
@@ -55,6 +57,7 @@ public class SubscriptionController {
         subscriptionService.save(subscription);
         modelAndView.addObject("subscription", subscription);
         modelAndView.setViewName("redirect:/pricing");
+        LOGGER.info("Membership created {}", subscription.getNamesSubscription().name());
         return modelAndView;
     }
 
@@ -62,6 +65,7 @@ public class SubscriptionController {
     public ModelAndView deleteById(@PathVariable String id, ModelAndView modelAndView) {
         subscriptionService.deleteById(id);
         modelAndView.setViewName("redirect:/pricing");
+        LOGGER.info("Membership: " + id + " deleted");
         return modelAndView;
     }
 
@@ -80,17 +84,18 @@ public class SubscriptionController {
             return modelAndView;
         }
         subscriptionService.update(subscription);
+        LOGGER.info("Membership updated {}", subscription.getNamesSubscription().name());
         return modelAndView;
     }
 
     @PatchMapping("/update/{id}")
-    public ModelAndView updateMembership(@PathVariable String id ,ModelAndView modelAndView, Principal principal) {
+    public ModelAndView updateMembership(@PathVariable String id, ModelAndView modelAndView, Principal principal) {
         String name = principal.getName();
         Visitor visitor = visitorService.findByEmail(name);
-        System.out.println(visitor);
         Subscription subscription = subscriptionService.findById(id);
         visitor.setSubscription(subscription);
         visitorService.updateVisitor(visitor);
+        LOGGER.info("Membership updated {}", subscription.getNamesSubscription().name());
         modelAndView.setViewName("redirect:/pricing");
         return modelAndView;
     }

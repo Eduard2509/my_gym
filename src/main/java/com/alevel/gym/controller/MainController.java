@@ -1,15 +1,14 @@
 package com.alevel.gym.controller;
 
-import com.alevel.gym.dto.VisitorDTO;
-import com.alevel.gym.mapper.VisitorMapper;
 import com.alevel.gym.model.*;
 import com.alevel.gym.service.CoachService;
 import com.alevel.gym.service.SubscriptionService;
 import com.alevel.gym.service.VisitorService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -17,13 +16,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.validation.Valid;
+import java.awt.print.Pageable;
 import java.util.List;
-import java.util.regex.Pattern;
 
 @Controller
 @RequestMapping
 public class MainController {
-
+    private static final Logger LOGGER = LoggerFactory.getLogger(MainController.class);
     VisitorService visitorService;
     CoachService coachService;
     SubscriptionService subscriptionService;
@@ -46,12 +45,6 @@ public class MainController {
         modelAndView.setViewName("about");
         return modelAndView;
     }
-
-//    @GetMapping("/pricing")
-//    public ModelAndView getPricing(ModelAndView modelAndView) {
-//        modelAndView.setViewName("pricing");
-//        return modelAndView;
-//    }
 
     @GetMapping("/login")
     public ModelAndView getLogin(ModelAndView modelAndView) {
@@ -76,14 +69,21 @@ public class MainController {
             modelAndView.setViewName("sign-up");
             return modelAndView;
         }
-        Subscription byName = subscriptionService.findByName(NamesSubscription.NONE);
-        Coach noneCoach = coachService.findByName("NONE");
-        visitor.setSubscription(byName);
-        visitor.setCoach(noneCoach);
-        visitorService.saveVisitor(visitor);
-        modelAndView.addObject("visitor", visitor);
-        modelAndView.setViewName("login");
-        return modelAndView;
-    }
 
+        if (visitorService.findByEmail(visitor.getEmail()) == null) {
+            Subscription byName = subscriptionService.findByName(NamesSubscription.NONE);
+            Coach noneCoach = coachService.findByName("NONE");
+            visitor.setSubscription(byName);
+            visitor.setCoach(noneCoach);
+            visitorService.saveVisitor(visitor);
+            LOGGER.info("Visitor created {}", visitor.getName());
+            modelAndView.addObject("visitor", visitor);
+            modelAndView.setViewName("login");
+            return modelAndView;
+        } else {
+            modelAndView.setViewName("sign-up");
+            LOGGER.info("Fail create visitor");
+            return modelAndView;
+        }
+    }
 }
