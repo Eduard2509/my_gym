@@ -24,7 +24,7 @@
                 <a th:href="@{/login}" class="btn btn-dark">Buy now</a>
             </div>
             <div>
-                <button sec:authorize="isAuthenticated()"
+                <button sec:authorize="hasAuthority('VISITOR')"
                         class="btn btn-dark"
                         type="button"
                         data-bs-toggle="modal"
@@ -33,6 +33,9 @@
                         th:attr="onclick=|setId('@{/pricing/update/{id}(id = ${subscription.id})}')|"
                 >Buy now
                 </button>
+            </div>
+            <div sec:authorize="hasAnyAuthority('ADMIN', 'OWNER')">
+                <a type th:href="@{/pricing}" class="btn btn-dark">Buy now</a>
             </div>
             <button sec:authorize="hasAnyAuthority('ADMIN', 'OWNER')"
                     class="price-delete-button"
