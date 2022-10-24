@@ -86,4 +86,10 @@ public class MainController {
             return modelAndView;
         }
     }
+
+    @GetMapping("/man-locked")
+    public ModelAndView getManLockedRoom(ModelAndView modelAndView) {
+        modelAndView.setViewName("man-locked-room");
+        return modelAndView;
+    }
 }

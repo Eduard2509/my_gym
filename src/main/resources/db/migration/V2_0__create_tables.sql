@@ -54,3 +54,18 @@ create table visitor
 alter table visitor
     owner to postgres;
 
+create table locked_room
+(
+    id         varchar(255) not null
+        primary key,
+    condition  varchar(255),
+    imageurl   varchar(255),
+    sex        varchar(255),
+    value      integer      not null,
+    visitor_id varchar(255)
+        constraint fkeqwfcte9g478djvpee28w35xm
+            references visitor
+);
+
+alter table locked_room
+    owner to postgres;

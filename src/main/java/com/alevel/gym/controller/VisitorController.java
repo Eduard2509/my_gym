@@ -3,6 +3,7 @@ package com.alevel.gym.controller;
 import com.alevel.gym.dto.VisitorDTO;
 import com.alevel.gym.model.*;
 import com.alevel.gym.service.CoachService;
+import com.alevel.gym.service.LockedRoomService;
 import com.alevel.gym.service.SubscriptionService;
 import com.alevel.gym.service.VisitorService;
 import org.slf4j.Logger;
@@ -27,12 +28,15 @@ public class VisitorController {
     VisitorService visitorService;
     SubscriptionService subscriptionService;
     CoachService coachService;
+    LockedRoomService lockedRoomService;
 
     @Autowired
-    public VisitorController(VisitorService visitorService, SubscriptionService subscriptionService, CoachService coachService) {
+    public VisitorController(VisitorService visitorService, SubscriptionService subscriptionService,
+                             CoachService coachService, LockedRoomService lockedRoomService) {
         this.visitorService = visitorService;
         this.subscriptionService = subscriptionService;
         this.coachService = coachService;
+        this.lockedRoomService = lockedRoomService;
     }
 
     @GetMapping
@@ -107,4 +111,45 @@ public class VisitorController {
         return modelAndView;
     }
 
+    @GetMapping("/locked/{id}")
+    public ModelAndView getAllLocked(@PathVariable String id, ModelAndView modelAndView) {
+        Visitor visitor = visitorService.findById(id);
+        modelAndView.addObject("visitorId", visitor.getId());
+        if (visitor.getSex().name().equals("MAN")) {
+            List<LockedRoom> allLockedForMan = lockedRoomService.findAllLockedForMan();
+            modelAndView.addObject("allLockedFor", allLockedForMan);
+            modelAndView.setViewName("locked");
+        }
+        if (visitor.getSex().name().equals("WOMAN")) {
+            List<LockedRoom> allLockedForWoman = lockedRoomService.findAllLockedForWoman();
+            modelAndView.addObject("allLockedFor", allLockedForWoman);
+            modelAndView.setViewName("locked");
+        }
+        return modelAndView;
+    }
+
+    @PatchMapping("/locked")
+    public ModelAndView updateLocked(@RequestParam String idVisitor,
+                                     @RequestParam int numberLocked,
+                                     ModelAndView modelAndView) {
+        LockedRoom lockedRoomActive = lockedRoomService.findByValue(numberLocked, Condition.ON.name());
+        LockedRoom lockedRoomDisabled = lockedRoomService.findByValue(numberLocked, Condition.OFF.name());
+        Visitor visitor = visitorService.findById(idVisitor);
+       if (lockedRoomActive.getSex() != null && lockedRoomService.findByVisitorId(idVisitor)) {
+           lockedRoomActive.setVisitor(visitor);
+           lockedRoomActive.setCondition(Condition.OFF);
+           lockedRoomDisabled.setCondition(Condition.ON);
+           lockedRoomService.save(lockedRoomActive);
+           lockedRoomService.save(lockedRoomDisabled);
+       }
+       if (lockedRoomActive.getSex() == null && !lockedRoomService.findByVisitorId(idVisitor)) {
+           lockedRoomDisabled.setVisitor(null);
+           lockedRoomDisabled.setCondition(Condition.ON);
+           lockedRoomActive.setCondition(Condition.OFF);
+           lockedRoomService.save(lockedRoomDisabled);
+           lockedRoomService.save(lockedRoomActive);
+       }
+       modelAndView.setViewName("redirect:/visitors");
+        return modelAndView;
+    }
 }

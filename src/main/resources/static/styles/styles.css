@@ -2,7 +2,7 @@
     font-family: 'Bungee Spice', cursive;
 }
 
-.p-3 .text-bg-dark{
+.p-3 .text-bg-dark {
     background: darkslategrey;
 }
 
@@ -50,7 +50,7 @@ main {
 .map {
     position: relative;
     text-align: center;
-    top:50px;
+    top: 50px;
 }
 
 .address-item {
@@ -64,7 +64,7 @@ main {
     position: relative;
     text-align: center;
     font-size: 18px;
-    top:50px;
+    top: 50px;
     background: darkslategrey;
 }
 
@@ -232,7 +232,7 @@ main {
 
 }
 
-.example{
+.example {
     display: flex;
     margin-right: 25px;
     margin-top: 10px;
@@ -296,7 +296,7 @@ main {
     left: 7px;
     width: 45px;
     height: 45px;
-    background-color: rgba(28,28,28,0);
+    background-color: rgba(28, 28, 28, 0);
     border: none;
 }
 
@@ -350,7 +350,7 @@ main {
     left: 7px;
     width: 45px;
     height: 45px;
-    background-color: rgba(28,28,28,0);
+    background-color: rgba(28, 28, 28, 0);
     border: none;
 }
 
@@ -382,10 +382,60 @@ main {
 
 .table-html {
     background-color: #262626;
-    width: 80%;
+    width: 90%;
     position: relative;
     padding: 10px;
     margin-right: auto;
     margin-left: auto;
     border-radius: 15px;
+}
+
+.container-locked-room {
+    position: relative;
+    margin-top: 100px;
+    padding-top: 25px;
+    padding-left: 15px;
+    padding-bottom: 25px;
+    border-radius: 15px;
+    width: 60%;
+    margin-left: auto;
+    margin-right: auto;
+    background-color: #262626;
+}
+
+.row-lockers {
+    display: inline-block;
+    text-align: center;
+    vertical-align: top;
+}
+
+.row-lockers:after {
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.locker {
+    display: block;
+    padding: 10px;
+}
+
+.locker img {
+    width: 150px;
+    height: 150px;
+    border-radius: 20px;
+}
+
+.locker button {
+    border: none;
+    background-color: rgba(28, 28, 28, 0);
+    width: 150px;
+    height: 150px;
+}
+
+.woman-color img {
+    background-color: red;
+}
+
+.man-color img {
+    background-color: blue;
 }

@@ -1,5 +1,6 @@
 package com.alevel.gym.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -10,6 +11,7 @@ import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
+import javax.validation.constraints.NotEmpty;
 import java.util.Collection;
 import java.util.Collections;
 
@@ -25,7 +27,9 @@ public class Visitor extends People implements UserDetails {
     @Enumerated(EnumType.STRING)
     private StatusPeople statusPeople;
     @Email(message = "This email is invalid")
+    @NotEmpty
     private String email;
+    @NotEmpty
     private String password;
 
     @ManyToOne

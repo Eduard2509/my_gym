@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      xmlns:th="http://www.thymeleaf.org" lang="en">
+
+<head th:insert="menu :: head-menu"></head>
+
+<body>
+
+<div sec:authorize="isAuthenticated()" th:insert="menu :: header-login-visitor"></div>
+
+<h1 class="registration-header">Man locked room</h1>
+
+<div class="container-locked-room">
+    <div class="row-lockers" th:each="locked, state : ${allLockedForMan}">
+        <div class="locker">
+            <form name="updateVisitor" th:action="@{/visitors/locked}" th:method="PATCH">
+                <input type="hidden" th:value="${state.index+1}" name="numberLocked">
+                <input type="hidden" th:value="${visitorId}" name="idVisitor">
+                <button type="submit"><img th:src="${locked.imageURL}"></button>
+            </form>
+        </div>
+        <!--        <div class="locker">-->
+        <!--            <a th:href="@{/visitors}"><img th:src="@{/man-locked/2.png}"></a>-->
+        <!--        </div>-->
+        <!--        <div class="locker">-->
+        <!--            <a th:href="@{/visitors}"><img th:src="@{/man-locked/3.png}"></a>-->
+        <!--        </div>-->
+        <!--        <div class="locker">-->
+        <!--            <a th:href="@{/visitors}"><img th:src="@{/man-locked/4.png}"></a>-->
+        <!--        </div>-->
+        <!--        <div class="locker">-->
+        <!--            <a th:href="@{/visitors}"><img th:src="@{/man-locked/5.png}"></a>-->
+        <!--        </div>-->
+    </div>
+    <!--    <div class="row-lockers">-->
+    <!--        <div class="locker">-->
+    <!--            <a th:href="@{/visitors}"><img th:src="@{/man-locked/6.png}"></a>-->
+    <!--        </div>-->
+    <!--        <div class="locker">-->
+    <!--            <a th:href="@{/visitors}"><img th:src="@{/man-locked/7.png}"></a>-->
+    <!--        </div>-->
+    <!--        <div class="locker">-->
+    <!--            <a th:href="@{/visitors}"><img th:src="@{/man-locked/8.png}"></a>-->
+    <!--        </div>-->
+    <!--        <div class="locker">-->
+    <!--            <a th:href="@{/visitors}"><img th:src="@{/man-locked/9.png}"></a>-->
+    <!--        </div>-->
+    <!--        <div class="locker">-->
+    <!--            <a th:href="@{/visitors}"><img th:src="@{/man-locked/10.png}"></a>-->
+    <!--        </div>-->
+    <!--    </div>-->
+    <!--    <div class="row-lockers">-->
+    <!--        <div class="locker">-->
+    <!--            <a th:href="@{/visitors}"><img th:src="@{/man-locked/11.png}"></a>-->
+    <!--        </div>-->
+    <!--        <div class="locker">-->
+    <!--            <a th:href="@{/visitors}"><img th:src="@{/man-locked/12.png}"></a>-->
+    <!--        </div>-->
+    <!--        <div class="locker">-->
+    <!--            <a th:href="@{/visitors}"><img th:src="@{/man-locked/13.png}"></a>-->
+    <!--        </div>-->
+    <!--        <div class="locker">-->
+    <!--            <a th:href="@{/visitors}"><img th:src="@{/man-locked/14.png}"></a>-->
+    <!--        </div>-->
+    <!--        <div class="locker">-->
+    <!--            <a th:href="@{/visitors}"><img th:src="@{/man-locked/15.png}"></a>-->
+    <!--        </div>-->
+    <!--    </div>-->
+    <!--    <div class="row-lockers">-->
+    <!--        <div class="locker">-->
+    <!--            <a th:href="@{/visitors}"><img th:src="@{/man-locked/16.png}"></a>-->
+    <!--        </div>-->
+    <!--        <div class="locker">-->
+    <!--            <a th:href="@{/visitors}"><img th:src="@{/man-locked/17.png}"></a>-->
+    <!--        </div>-->
+    <!--        <div class="locker">-->
+    <!--            <a th:href="@{/visitors}"><img th:src="@{/man-locked/18.png}"></a>-->
+    <!--        </div>-->
+    <!--        <div class="locker">-->
+    <!--            <a th:href="@{/visitors}"><img th:src="@{/man-locked/19.png}"></a>-->
+    <!--        </div>-->
+    <!--        <div class="locker">-->
+    <!--            <a th:href="@{/visitors}"><img th:src="@{/man-locked/20.png}"></a>-->
+    <!--        </div>-->
+    <!--    </div>-->
+</div>
+
+<div th:insert="sign-up :: footer-container"></div>
+</body>
+</html>

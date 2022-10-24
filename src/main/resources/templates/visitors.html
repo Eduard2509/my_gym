@@ -49,6 +49,7 @@
             <th>Coach</th>
             <th>Update</th>
             <th>Delete</th>
+            <th>LR</th>
         </tr>
         </thead>
         <tbody>
@@ -71,6 +72,9 @@
                         th:attr="onclick=|setAction('@{/visitors/{id}(id = ${visitor.id})}')|"
                 >Delete
                 </button>
+            </td>
+            <td>
+                <a th:href="@{/visitors/locked/{id}(id=${visitor.id})}" class="btn btn-secondary">Lock room</a>
             </td>
         </tr>
         </tbody>
