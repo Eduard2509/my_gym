@@ -9,14 +9,12 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.validation.Valid;
 import java.awt.print.Pageable;
+import java.security.Principal;
 import java.util.List;
 
 @Controller
@@ -90,6 +88,37 @@ public class MainController {
     @GetMapping("/man-locked")
     public ModelAndView getManLockedRoom(ModelAndView modelAndView) {
         modelAndView.setViewName("man-locked-room");
+        return modelAndView;
+    }
+
+    @GetMapping("/profile")
+    public ModelAndView getProfile(Principal principal, ModelAndView modelAndView) {
+        String email = principal.getName();
+        Visitor visitor = visitorService.findByEmail(email);
+        modelAndView.addObject("visitor", visitor);
+        modelAndView.setViewName("profile");
+        return modelAndView;
+    }
+
+    @GetMapping("/profile/edit")
+    public ModelAndView getEditProfile(Principal principal, ModelAndView modelAndView) {
+        String email = principal.getName();
+        Visitor visitor = visitorService.findByEmail(email);
+        modelAndView.addObject("visitor", visitor);
+        modelAndView.setViewName("profile-edit");
+        return modelAndView;
+    }
+
+    @PutMapping("/profile/edit")
+    public ModelAndView getEditProfile(@Valid Visitor visitor,
+                                       BindingResult bindingResult,
+                                       ModelAndView modelAndView) {
+        modelAndView.setViewName("redirect:/profile");
+        if (bindingResult.hasErrors()) {
+            return modelAndView;
+        }
+        visitorService.updateVisitor(visitor);
+        LOGGER.info("Visitor updated {}", visitor.getName());
         return modelAndView;
     }
 }

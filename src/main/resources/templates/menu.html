@@ -55,7 +55,8 @@
 
                 <div class="header-for-login-user">
                     <div sec:authorize="isAuthenticated()">
-                        <h6 class="example" sec:authentication="name"></h6>
+                        <a class="example" sec:authentication="name" th:href="@{/profile}" style="text-decoration: none">
+                        </a>
                     </div>
                     <a th:href="@{/logout}"
                        class="btn btn-outline-light me-2">Log out

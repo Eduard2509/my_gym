@@ -33,7 +33,6 @@
                 th:attr="onclick=|setAction('@{/coaches/{id}(id = ${coach.id})}')|"><img
                 th:src="@{/crud-photo/remove.png}" alt="delete">
         </button>
-
         <div>
             <a sec:authorize="hasAnyAuthority('ADMIN', 'OWNER')" th:href="@{/coaches/update/{id}(id=${coach.id})}"
                class="button-update"><img
