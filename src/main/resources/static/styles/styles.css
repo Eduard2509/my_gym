@@ -279,6 +279,10 @@ main {
     margin-bottom: 25px;
 }
 
+.add-visitor-icon .btn {
+    width: 300px;
+}
+
 .container-image {
     width: 200px;
     height: 250px;
@@ -394,7 +398,7 @@ main {
     position: relative;
     margin-top: 100px;
     padding-top: 25px;
-    padding-left: 15px;
+    padding-left: 20px;
     padding-bottom: 25px;
     border-radius: 15px;
     width: 60%;
@@ -420,22 +424,39 @@ main {
 }
 
 .locker img {
-    width: 150px;
-    height: 150px;
+    width: 100px;
+    height: 100px;
     border-radius: 20px;
 }
 
 .locker button {
     border: none;
-    background-color: rgba(28, 28, 28, 0);
     width: 150px;
     height: 150px;
+    border-radius: 20px;
 }
 
-.woman-color img {
-    background-color: red;
+.woman-color button {
+    background-color: deeppink;
 }
 
-.man-color img {
-    background-color: blue;
+.man-color button {
+    background-color: dodgerblue;
+}
+
+.key-link img {
+    width: 20px;
+    height: 20px;
+}
+
+.buttons-keys {
+    position: relative;
+    text-align: center;
+    margin-top: 150px;
+    margin-bottom: 250px;
+}
+
+.buttons-keys .btn {
+    width: 250px;
+    height: 50px;
 }

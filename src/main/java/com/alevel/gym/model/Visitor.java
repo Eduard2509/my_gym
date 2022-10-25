@@ -40,6 +40,10 @@ public class Visitor extends People implements UserDetails {
     @JoinColumn(name = "subscription_id")
     private Subscription subscription;
 
+    @OneToOne
+    @JoinColumn(name = "locked_id")
+    private LockedRoom lockedRoom;
+
 
     public Visitor(String id, String name, String surname, int age, String email, String password, Sex sex) {
         super(id, name, surname, sex);

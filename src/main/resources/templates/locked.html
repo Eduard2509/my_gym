@@ -17,11 +17,14 @@
             <form name="updateVisitor" th:action="@{/visitors/locked}" th:method="PATCH">
                 <input type="hidden" th:value="${state.index+1}" name="numberLocked">
                 <input type="hidden" th:value="${visitorId}" name="idVisitor">
-                <div th:if="${locked.sex.name == 'MAN'}" class="man-color">
-                <button type="submit"><img th:src="${locked.imageURL}" style="background: blue"></button>
+                <div th:if="${locked.sex.name == 'MAN' && locked.condition.name == 'ON'}" class="man-color">
+                <button type="submit"><img th:src="${locked.imageURL}"></button>
                 </div>
-                <div th:if="${locked.sex.name == 'WOMAN'}" class="woman-color">
-                    <button type="submit"><img th:src="${locked.imageURL}" style="background: deeppink"></button>
+                <div th:if="${locked.sex.name == 'WOMAN' && locked.condition.name == 'ON'}" class="woman-color">
+                    <button type="submit"><img th:src="${locked.imageURL}"></button>
+                </div>
+                <div th:if="${locked.condition.name == 'OFF'}" class="disabled-color">
+                    <button type="submit" disabled><img th:src="${locked.imageURL}"></button>
                 </div>
             </form>
         </div>

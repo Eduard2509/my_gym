@@ -1,6 +1,7 @@
 package com.alevel.gym.service;
 
 import com.alevel.gym.model.LockedRoom;
+import com.alevel.gym.model.Sex;
 import com.alevel.gym.repository.LockedRoomRepository;
 import org.springframework.stereotype.Service;
 
@@ -24,8 +25,12 @@ public class LockedRoomService {
         return lockedRoomRepository.findById(id).orElseThrow(IllegalArgumentException::new);
     }
 
-    public LockedRoom findByValue(int value, String condition){
-        return lockedRoomRepository.findByValue(value, condition);
+    public LockedRoom findByValueManLocked(int value, String condition){
+        return lockedRoomRepository.findByValue(value, condition, Sex.MAN.name());
+    }
+
+    public LockedRoom findByValueWomanLocked(int value, String condition){
+        return lockedRoomRepository.findByValue(value, condition, Sex.WOMAN.name());
     }
 
     public void save(LockedRoom lockedRoom) {

@@ -78,6 +78,12 @@ public class VisitorController {
     @DeleteMapping("/{id}")
     public ModelAndView deleteById(@PathVariable String id, ModelAndView modelAndView) {
         Visitor visitor = visitorService.findById(id);
+        if (visitor.getLockedRoom() != null) {
+            LockedRoom room = visitor.getLockedRoom();
+            room.setVisitor(null);
+            lockedRoomService.save(room);
+            visitor.setLockedRoom(null);
+        }
         visitor.setSubscription(null);
         visitor.setCoach(null);
         visitorService.deleteById(id);
@@ -132,24 +138,47 @@ public class VisitorController {
     public ModelAndView updateLocked(@RequestParam String idVisitor,
                                      @RequestParam int numberLocked,
                                      ModelAndView modelAndView) {
-        LockedRoom lockedRoomActive = lockedRoomService.findByValue(numberLocked, Condition.ON.name());
-        LockedRoom lockedRoomDisabled = lockedRoomService.findByValue(numberLocked, Condition.OFF.name());
+        LockedRoom lockedRoomActiveMan = lockedRoomService.findByValueManLocked(numberLocked, Condition.ON.name());
+        LockedRoom lockedRoomActiveWoman = lockedRoomService.findByValueWomanLocked(numberLocked, Condition.ON.name());
         Visitor visitor = visitorService.findById(idVisitor);
-       if (lockedRoomActive.getSex() != null && lockedRoomService.findByVisitorId(idVisitor)) {
-           lockedRoomActive.setVisitor(visitor);
-           lockedRoomActive.setCondition(Condition.OFF);
-           lockedRoomDisabled.setCondition(Condition.ON);
-           lockedRoomService.save(lockedRoomActive);
-           lockedRoomService.save(lockedRoomDisabled);
-       }
-       if (lockedRoomActive.getSex() == null && !lockedRoomService.findByVisitorId(idVisitor)) {
-           lockedRoomDisabled.setVisitor(null);
-           lockedRoomDisabled.setCondition(Condition.ON);
-           lockedRoomActive.setCondition(Condition.OFF);
-           lockedRoomService.save(lockedRoomDisabled);
-           lockedRoomService.save(lockedRoomActive);
-       }
-       modelAndView.setViewName("redirect:/visitors");
+
+        if (visitor.getSex().name().equals("MAN") && lockedRoomActiveMan != null && visitor.getLockedRoom() == null) {
+            visitor.setLockedRoom(lockedRoomActiveMan);
+            lockedRoomActiveMan.setVisitor(visitor);
+            lockedRoomActiveMan.setCondition(Condition.OFF);
+            visitorService.updateVisitor(visitor);
+            lockedRoomService.save(lockedRoomActiveMan);
+        }
+        if (visitor.getSex().name().equals("WOMAN") && lockedRoomActiveWoman != null && visitor.getLockedRoom() == null) {
+            visitor.setLockedRoom(lockedRoomActiveWoman);
+            lockedRoomActiveWoman.setVisitor(visitor);
+            lockedRoomActiveWoman.setCondition(Condition.OFF);
+            visitorService.updateVisitor(visitor);
+            lockedRoomService.save(lockedRoomActiveWoman);
+        }
+        modelAndView.setViewName("redirect:/visitors");
+        return modelAndView;
+    }
+
+    @GetMapping("/{id}")
+    public ModelAndView getView(@PathVariable String id, ModelAndView modelAndView) {
+        Visitor visitor = visitorService.findById(id);
+        modelAndView.addObject("visitor", visitor);
+        modelAndView.addObject("id", id);
+        modelAndView.setViewName("keys");
+        return modelAndView;
+    }
+
+    @PatchMapping
+    public ModelAndView unlockingKey(@RequestParam String id, ModelAndView modelAndView) {
+        Visitor visitor = visitorService.findById(id);
+        LockedRoom lockedRoom = visitor.getLockedRoom();
+        lockedRoom.setCondition(Condition.ON);
+        lockedRoom.setVisitor(null);
+        visitor.setLockedRoom(null);
+        visitorService.saveVisitor(visitor);
+        lockedRoomService.save(lockedRoom);
+        modelAndView.setViewName("redirect:/visitors");
         return modelAndView;
     }
 }

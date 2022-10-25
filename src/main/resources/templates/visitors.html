@@ -50,6 +50,7 @@
             <th>Update</th>
             <th>Delete</th>
             <th>LR</th>
+            <th>Key</th>
         </tr>
         </thead>
         <tbody>
@@ -74,7 +75,26 @@
                 </button>
             </td>
             <td>
-                <a th:href="@{/visitors/locked/{id}(id=${visitor.id})}" class="btn btn-secondary">Lock room</a>
+                <div th:if="${visitor.lockedRoom} == null">
+                    <a th:href="@{/visitors/locked/{id}(id=${visitor.id})}" class="btn btn-secondary">LR</a>
+                </div>
+                <div th:if="${visitor.lockedRoom} != null">
+                    <a th:href="@{/visitors/locked/{id}(id=${visitor.id})}" class="btn btn-danger"
+                       style="pointer-events: none">LR</a>
+                </div>
+            </td>
+            <td>
+                <div th:if="${visitor.lockedRoom} != null" class="key-link">
+                    <a th:href="@{/visitors/{id}(id=${visitor.id})}" class="btn btn-secondary">
+                        <img th:src="@{/lockeds-room/key.png}">
+                    </a>
+                </div>
+                <div th:if="${visitor.lockedRoom} == null" class="key-link">
+                    <a th:href="@{/visitors/{id}(id=${visitor.id})}" class="btn btn-danger"
+                       style="pointer-events: none">
+                        <img th:src="@{/lockeds-room/key.png}">
+                    </a>
+                </div>
             </td>
         </tr>
         </tbody>
