@@ -1,1 +1,1 @@
-web: java -Dserver.port=$PORT $JAVA_OPTS -jar target/my_gym-1.0-SNAPSHOT.jar --url=jdbc:postgresql://ec2-54-229-217-195.eu-west-1.compute.amazonaws.com:5432/d1ueb4nite863 --username=erlllfimhynqqf --password=cbe050b5371df15fd64237a128c22938ecab3082fdc98efbcb826458333511fc
+web: java -Dserver.port=$PORT $JAVA_OPTS -jar target/gym-0.0.1-SNAPSHOT.jar --url=jdbc:postgresql://ec2-54-229-217-195.eu-west-1.compute.amazonaws.com:5432/d1ueb4nite863 --username=erlllfimhynqqf --password=cbe050b5371df15fd64237a128c22938ecab3082fdc98efbcb826458333511fc
