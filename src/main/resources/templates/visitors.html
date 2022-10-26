@@ -51,6 +51,7 @@
             <th>Delete</th>
             <th>LR</th>
             <th>Key</th>
+            <th>#</th>
         </tr>
         </thead>
         <tbody>
@@ -95,6 +96,9 @@
                         <img th:src="@{/lockeds-room/key.png}">
                     </a>
                 </div>
+            </td>
+            <td>
+                <div class="number-key" th:if="${visitor.lockedRoom} != null" th:text="${visitor.lockedRoom.value}"></div>
             </td>
         </tr>
         </tbody>

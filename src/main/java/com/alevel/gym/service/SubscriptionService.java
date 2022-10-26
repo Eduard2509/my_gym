@@ -17,7 +17,7 @@ public class SubscriptionService {
     }
 
     public Iterable<Subscription> getAll() {
-        return subscriptionRepository.findAll();
+        return subscriptionRepository.findAllAndOrderByPrice();
     }
 
     public Subscription save(Subscription subscription) {

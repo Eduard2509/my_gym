@@ -8,6 +8,8 @@ import com.alevel.gym.repository.CoachRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class CoachService {
 
@@ -45,6 +47,10 @@ public class CoachService {
         if (coachRepository.existsById(id)) {
             coachRepository.deleteById(id);
         }
+    }
+
+    public List<Coach> findByNameOrSurname(String name) {
+        return coachRepository.findByNameOrSurname(name);
     }
 
 }

@@ -13,8 +13,6 @@ create table coach
     status_people varchar(255)
 );
 
-alter table coach
-    owner to postgres;
 
 create table locked_room
 (
@@ -27,8 +25,6 @@ create table locked_room
     visitor_id varchar(255)
 );
 
-alter table locked_room
-    owner to postgres;
 
 create table subscription
 (
@@ -41,8 +37,6 @@ create table subscription
     title              varchar(255)
 );
 
-alter table subscription
-    owner to postgres;
 
 create table visitor
 (
@@ -68,8 +62,6 @@ create table visitor
             references subscription
 );
 
-alter table visitor
-    owner to postgres;
 
 alter table locked_room
     add constraint fkeqwfcte9g478djvpee28w35xm

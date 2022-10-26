@@ -27,9 +27,14 @@ public class CoachController {
     }
 
     @GetMapping
-    public ModelAndView getAllCoaches(ModelAndView modelAndView) {
-        Iterable<Coach> coaches = coachService.getAll();
-        modelAndView.addObject("coaches", coaches);
+    public ModelAndView getAllCoaches(@RequestParam(required = false) String value, ModelAndView modelAndView) {
+        if (value == null) {
+            Iterable<Coach> coaches = coachService.getAll();
+            modelAndView.addObject("coaches", coaches);
+        } else {
+            List<Coach> findCoach = coachService.findByNameOrSurname(value);
+            modelAndView.addObject("coaches", findCoach);
+        }
         modelAndView.setViewName("coaches");
         return modelAndView;
     }
@@ -80,4 +85,5 @@ public class CoachController {
         LOGGER.info("Visitor updated {}", coach.getName());
         return modelAndView;
     }
+
 }

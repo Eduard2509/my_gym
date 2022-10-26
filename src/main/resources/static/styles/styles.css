@@ -371,8 +371,12 @@ main {
 }
 
 .find-by-name {
-    padding-left: 75px;
+    position: relative;
+    text-align: center;
     width: 500px;
+    margin-right: auto;
+    margin-left: auto;
+    margin-bottom: 40px;
 }
 
 .error-img {
@@ -474,4 +478,26 @@ main {
 .visitor-profile div {
     padding: 10px;
     font-size: 25px;
+}
+
+.number-key {
+    position: relative;
+    margin-top: 5px;
+}
+
+.coach-not-found {
+    position: relative;
+    font-size: 40px;
+    width: 500px;
+    margin: 50px auto 40px;
+    background-color: darkslategrey;
+    border-radius: 20px;
+}
+
+.button-back {
+    margin-bottom: 150px;
+}
+
+.button-back .btn {
+    width: 200px;
 }
