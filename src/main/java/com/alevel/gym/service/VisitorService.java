@@ -61,11 +61,6 @@ public class VisitorService implements UserDetailsService {
         visitorRepository.save(visitor);
     }
 
-    public Iterable<Visitor> getAll() {
-        return visitorRepository.findAll();
-    }
-
-
     public List<Visitor> findAllByStatusPeopleAdmins() {
         return visitorRepository.findAllByStatusPeople(StatusPeople.ADMIN.name());
     }

@@ -21,10 +21,6 @@ public class LockedRoomService {
     }
 
 
-    public LockedRoom findById(String id) {
-        return lockedRoomRepository.findById(id).orElseThrow(IllegalArgumentException::new);
-    }
-
     public LockedRoom findByValueManLocked(int value, String condition){
         return lockedRoomRepository.findByValue(value, condition, Sex.MAN.name());
     }
@@ -37,9 +33,6 @@ public class LockedRoomService {
         lockedRoomRepository.save(lockedRoom);
     }
 
-    public boolean findByVisitorId(String id) {
-        return lockedRoomRepository.findByVisitorId(id).isEmpty();
-    }
 
     public List<LockedRoom> findAllLockedForWoman() {
         return lockedRoomRepository.findAllLockedForWoman();
