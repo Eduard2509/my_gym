@@ -80,6 +80,7 @@ public class VisitorController {
         Visitor visitor = visitorService.findById(id);
         if (visitor.getLockedRoom() != null) {
             LockedRoom room = visitor.getLockedRoom();
+            room.setCondition(Condition.ON);
             room.setVisitor(null);
             lockedRoomService.save(room);
             visitor.setLockedRoom(null);
