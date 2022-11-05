@@ -1,0 +1,503 @@
+* {
+    font-family: 'Bungee Spice', cursive;
+}
+
+.p-3 .text-bg-dark {
+    background: darkslategrey;
+}
+
+body {
+    background-image: url("../design-site/modern-home-gym.jpg");
+    background-position: center center;
+    background-attachment: fixed;
+}
+
+.global-name {
+    font-family: 'Bungee Spice', cursive;
+    align-content: center;
+    position: relative;
+    font-size: 80px;
+    text-align: center;
+    object-position: center;
+    top: 30px;
+    bottom: 30px;
+}
+
+main {
+    align-content: center;
+    position: relative;
+    text-align: center;
+    top: 50px;
+    bottom: 50px;
+}
+
+.our-gym {
+    position: relative;
+    font-size: 60px;
+    text-align: center;
+    bottom: 50px;
+}
+
+.address {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-items: center;
+    justify-content: center;
+    background: darkslategrey;
+}
+
+.map {
+    position: relative;
+    text-align: center;
+    top: 50px;
+}
+
+.address-item {
+    position: relative;
+    text-align: center;
+    font-size: 25px;
+    padding: 50px;
+}
+
+.container-footer {
+    position: relative;
+    text-align: center;
+    font-size: 18px;
+    top: 50px;
+    background: darkslategrey;
+}
+
+.nav-item {
+    padding-right: 70px;
+}
+
+.text-center {
+    font-size: 14px;
+}
+
+.coaches-gym {
+    align-content: center;
+    position: relative;
+    font-size: 80px;
+    text-align: center;
+    object-position: center;
+    top: 30px;
+    bottom: 30px;
+}
+
+.coaches-portfolio {
+    position: relative;
+    justify-content: center;
+    text-align: center;
+    align-items: center;
+    top: 70px;
+}
+
+.coach-prof {
+    background: darkslategrey;
+    background-size: 870px 315px;
+    position: relative;
+    text-align: center;
+    width: 696px;
+    height: 258px;
+    display: inline-block;
+    margin-right: 20px;
+    margin-bottom: 40px;
+    border: 3px solid;
+    border-radius: 10px;
+}
+
+.one-profile-coach {
+    position: relative;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+}
+
+.pricing {
+    position: relative;
+    font-size: 80px;
+    text-align: center;
+    top: 50px;
+}
+
+.cards {
+    position: relative;
+    text-align: center;
+    top: 100px;
+    margin-bottom: 80px;
+}
+
+.card {
+    text-align: center;
+    display: inline-block;
+    margin-right: 30px;
+    margin-bottom: 40px;
+    border: 3px solid;
+    border-radius: 10px;
+    background: cornsilk;
+}
+
+.about-title {
+    position: relative;
+    font-size: 80px;
+    text-align: center;
+    top: 50px;
+}
+
+.about {
+    position: relative;
+    margin-right: auto;
+    margin-left: auto;
+    padding: 20px;
+    font-size: 30px;
+    top: 70px;
+    width: 1000px;
+    text-align: center;
+    border-radius: 10px;
+    margin-bottom: 80px;
+    background: #262626;
+}
+
+.container-about {
+    text-align: center;
+}
+
+
+.form-sign {
+    width: 320px;
+    margin-right: auto;
+    margin-left: auto;
+    margin-bottom: 250px;
+}
+
+.header-login {
+    font-size: 35px;
+    width: 320px;
+    margin-right: auto;
+    margin-left: auto;
+    background: #262626;
+    border-radius: 15px;
+}
+
+.checkbox {
+    background: darkslategrey;
+    margin-right: auto;
+    margin-left: auto;
+    width: 200px;
+    border-radius: 15px;
+}
+
+.registration-header {
+    position: relative;
+    font-size: 60px;
+    text-align: center;
+    top: 50px;
+}
+
+.registration {
+    position: relative;
+    top: 100px;
+    width: 250px;
+    text-align: center;
+    margin-right: auto;
+    margin-left: auto;
+    margin-bottom: 150px;
+    font-size: 25px;
+}
+
+.name {
+    background: #262626;
+    border-radius: 15px;
+    width: 250px;
+}
+
+.submit-registration {
+    position: relative;
+    top: 15px;
+    font-size: 25px;
+}
+
+.submit-login {
+    position: relative;
+    top: 25px;
+}
+
+.header-for-login-user {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+
+}
+
+.example {
+    display: flex;
+    margin-right: 25px;
+}
+
+.button-visitors {
+    display: flex;
+    margin-right: 330px;
+    border: 2px solid white;
+    border-radius: 7px;
+}
+
+.button-admins {
+    position: relative;
+    right: 280px;
+    border: 2px solid white;
+    border-radius: 7px;
+}
+
+.visitors-header {
+    position: relative;
+    font-size: 60px;
+    text-align: center;
+    margin-top: 50px;
+    background: #262626;
+    border-radius: 15px;
+    width: 400px;
+    margin-right: auto;
+    margin-left: auto;
+}
+
+.table-visitors {
+    position: relative;
+    padding-bottom: 50px;
+    width: 90%;
+    margin-right: auto;
+    margin-left: auto;
+}
+
+.add-visitor-icon {
+    position: relative;
+    text-align: center;
+    margin-top: 50px;
+    margin-bottom: 25px;
+}
+
+.add-visitor-icon .btn {
+    width: 300px;
+}
+
+.container-image {
+    width: 200px;
+    height: 250px;
+}
+
+.container-image img {
+    width: 100%;
+    height: auto;
+}
+
+.button-delete {
+    position: absolute;
+    display: flex;
+    bottom: 2px;
+    left: 7px;
+    width: 45px;
+    height: 45px;
+    background-color: rgba(28, 28, 28, 0);
+    border: none;
+}
+
+.button-delete img {
+    width: 100%;
+    height: auto;
+}
+
+.button-update {
+    position: absolute;
+    display: flex;
+    bottom: 8px;
+    left: 440px;
+    width: 40px;
+    height: 40px;
+}
+
+.button-update img {
+    width: 100%;
+    height: auto;
+}
+
+.container-image-price {
+    width: 350px;
+    height: 200px;
+}
+
+.container-image-price img {
+    width: 100%;
+    height: auto;
+}
+
+.price-update {
+    position: absolute;
+    display: flex;
+    bottom: 16px;
+    left: 235px;
+    width: 40px;
+    height: 40px;
+}
+
+.price-update img {
+    width: 100%;
+    height: auto;
+}
+
+.price-delete-button {
+    position: absolute;
+    display: flex;
+    bottom: 7px;
+    left: 7px;
+    width: 45px;
+    height: 45px;
+    background-color: rgba(28, 28, 28, 0);
+    border: none;
+}
+
+.price-delete-button img {
+    width: 100%;
+    height: auto;
+}
+
+
+.error {
+    font-family: Arial;
+    color: red;
+    background: #262626;
+    border-radius: 15px;
+}
+
+.find-by-name {
+    position: relative;
+    text-align: center;
+    width: 500px;
+    margin-right: auto;
+    margin-left: auto;
+    margin-bottom: 40px;
+}
+
+.error-img {
+    position: relative;
+    text-align: center;
+    margin-top: 50px;
+    margin-right: auto;
+    margin-left: auto;
+}
+
+.table-html {
+    background-color: #262626;
+    width: 90%;
+    position: relative;
+    padding: 10px;
+    margin-right: auto;
+    margin-left: auto;
+    border-radius: 15px;
+}
+
+.container-locked-room {
+    position: relative;
+    margin-top: 100px;
+    padding-top: 25px;
+    padding-left: 20px;
+    padding-bottom: 25px;
+    border-radius: 15px;
+    width: 60%;
+    margin-left: auto;
+    margin-right: auto;
+    background-color: #262626;
+}
+
+.row-lockers {
+    display: inline-block;
+    text-align: center;
+    vertical-align: top;
+}
+
+.row-lockers:after {
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.locker {
+    display: block;
+    padding: 10px;
+}
+
+.locker img {
+    width: 100px;
+    height: 100px;
+    border-radius: 20px;
+}
+
+.locker button {
+    border: none;
+    width: 150px;
+    height: 150px;
+    border-radius: 20px;
+}
+
+.woman-color button {
+    background-color: deeppink;
+}
+
+.man-color button {
+    background-color: dodgerblue;
+}
+
+.key-link img {
+    width: 20px;
+    height: 20px;
+}
+
+.buttons-keys {
+    position: relative;
+    text-align: center;
+    margin-top: 110px;
+    margin-bottom: 150px;
+}
+
+.buttons-keys .btn {
+    width: 250px;
+    height: 50px;
+}
+
+.visitor-profile {
+    position: relative;
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 50px;
+    width: 400px;
+    border-radius: 20px;
+    background-color: #262626;
+}
+
+.visitor-profile div {
+    padding: 10px;
+    font-size: 25px;
+}
+
+.number-key {
+    position: relative;
+    margin-top: 5px;
+}
+
+.coach-not-found {
+    position: relative;
+    font-size: 40px;
+    width: 500px;
+    margin: 50px auto 40px;
+    background-color: darkslategrey;
+    border-radius: 20px;
+}
+
+.button-back {
+    margin-bottom: 150px;
+}
+
+.button-back .btn {
+    width: 200px;
+}

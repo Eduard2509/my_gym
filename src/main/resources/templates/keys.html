@@ -1,0 +1,27 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-spring4-4.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      xmlns:th="http://www.thymeleaf.org" lang="en">
+<head th:insert="menu :: head-menu"></head>
+<body>
+<div sec:authorize="isAuthenticated()" th:insert="menu :: header-login-visitor"></div>
+
+<div th:object="${visitor}" class="visitors-header">
+    <h1 th:text="'Visitor ' + ${visitor.name} + ' return key?'"></h1>
+</div>
+
+<div class="buttons-keys">
+    <form name="updateVisitor" th:action="@{/visitors/}" th:method="PATCH">
+        <input type="hidden" th:value="${id}" name="id">
+        <div th:if="${visitor.lockedRoom} != null" class="key-link">
+            <button type="submit" class="btn btn-success">
+                Yes
+            </button>
+        </div>
+    </form>
+    <a th:href="@{/visitors}" class="btn btn-secondary">No</a>
+</div>
+
+<div th:insert="sign-up :: footer-container"></div>
+</body>
+</html>

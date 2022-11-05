@@ -5,19 +5,17 @@ import com.alevel.gym.model.Subscription;
 
 public class SubscriptionMapper {
 
-    private  SubscriptionMapper(){}
+    private SubscriptionMapper() {
+    }
 
-    public static SubscriptionDTO mapToDTO(Subscription subscription){
+    public static SubscriptionDTO mapToDTO(Subscription subscription) {
         final SubscriptionDTO dto = new SubscriptionDTO();
         dto.setNamesSubscription(subscription.getNamesSubscription());
         dto.setPrice(subscription.getPrice());
+        dto.setDescription(subscription.getDescription());
+        dto.setTitle(subscription.getTitle());
+        dto.setImageURL(subscription.getImageURL());
         return dto;
     }
 
-    public Subscription mapFromDTO(SubscriptionDTO subscriptionDTO) {
-        final Subscription subscription = new Subscription();
-        subscription.setNamesSubscription(subscriptionDTO.getNamesSubscription());
-        subscription.setPrice(subscriptionDTO.getPrice());
-        return subscription;
-    }
 }

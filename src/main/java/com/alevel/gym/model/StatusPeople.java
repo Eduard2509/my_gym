@@ -1,5 +1,12 @@
 package com.alevel.gym.model;
 
-public enum StatusPeople {
-    COACH, ADMIN, VISITOR
+import org.springframework.security.core.GrantedAuthority;
+
+public enum StatusPeople implements GrantedAuthority {
+    COACH, ADMIN, VISITOR, OWNER;
+
+    @Override
+    public String getAuthority() {
+        return name();
+    }
 }

@@ -1,0 +1,29 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-spring4-4.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      xmlns:th="http://www.thymeleaf.org" lang="en">
+<head th:insert="menu :: head-menu"></head>
+<body>
+<div sec:authorize="isAuthenticated()" th:insert="menu :: header-login-visitor"></div>
+
+<h1 class="visitors-header">Your profile</h1>
+
+<div th:object="${visitor}" class="visitor-profile">
+    <div th:text="'Name: ' + ${visitor.name}"></div>
+    <div th:text="'Surname : ' + ${visitor.surname}"></div>
+    <div th:text="'Age: ' + ${visitor.age}"></div>
+    <div th:text="'Membership: ' + ${visitor.subscription.namesSubscription}"></div>
+    <div th:text="'Coach: ' + ${visitor.coach.name} + ' ' + ${visitor.coach.surname}"></div>
+    <div th:text="'Email: ' + ${visitor.email}"></div>
+    <div th:text="'Sex: ' + ${visitor.sex}"></div>
+</div>
+
+<div class="add-visitor-icon">
+    <a th:href="@{/profile/edit}" class="btn btn-warning">
+        Edit profile
+    </a>
+</div>
+
+<div th:insert="sign-up :: footer-container"></div>
+</body>
+</html>

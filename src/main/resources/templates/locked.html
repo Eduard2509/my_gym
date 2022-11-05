@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      xmlns:th="http://www.thymeleaf.org" lang="en">
+
+<head th:insert="menu :: head-menu"></head>
+
+<body>
+
+<div sec:authorize="isAuthenticated()" th:insert="menu :: header-login-visitor"></div>
+
+<h1 class="registration-header">Locked room</h1>
+
+<div class="container-locked-room">
+    <div class="row-lockers" th:each="locked, state : ${allLockedFor}">
+        <div class="locker">
+            <form name="updateVisitor" th:action="@{/visitors/locked}" th:method="PATCH">
+                <input type="hidden" th:value="${state.index+1}" name="numberLocked">
+                <input type="hidden" th:value="${visitorId}" name="idVisitor">
+                <div th:if="${locked.sex.name == 'MAN' && locked.condition.name == 'ON'}" class="man-color">
+                <button type="submit"><img th:src="${locked.imageURL}"></button>
+                </div>
+                <div th:if="${locked.sex.name == 'WOMAN' && locked.condition.name == 'ON'}" class="woman-color">
+                    <button type="submit"><img th:src="${locked.imageURL}"></button>
+                </div>
+                <div th:if="${locked.condition.name == 'OFF'}" class="disabled-color">
+                    <button type="submit" disabled><img th:src="${locked.imageURL}"></button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<div th:insert="sign-up :: footer-container"></div>
+</body>
+</html>

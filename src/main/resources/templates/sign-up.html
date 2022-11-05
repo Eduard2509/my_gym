@@ -1,111 +1,119 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Super gym</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet"
-          integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js"
-            integrity="sha384-u1OknCvxWvY5kfmNBILK2hRnQC3Pr17a+RTT6rIHI7NnikvbZlHgTPOOmMi466C8"
-            crossorigin="anonymous"></script>
-    <link rel="icon" href="../static/free-30-instagram-stories-icons60_122607.ico">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Bungee+Spice&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="styles.css">
-</head>
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-spring4-4.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      xmlns:th="http://www.thymeleaf.org" lang="en">
+
+<head th:insert="menu :: head-menu"></head>
+
 <body>
-<header class="p-3 text-bg-dark">
-    <div class="container-header">
-        <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
-            <a href="/" class="d-flex align-items-center mb-2 mb-lg-0 text-white text-decoration-none">
-                <svg class="bi me-2" width="40" height="32" role="img" aria-label="Bootstrap">
-                    <use xlink:href="#bootstrap"></use>
-                </svg>
-            </a>
+<div sec:authorize="!isAuthenticated()" th:fragment="header-container">
+    <header class="p-3 text-bg-dark">
+        <div class="container-header">
+            <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
+                <a href="/" class="d-flex align-items-center mb-2 mb-lg-0 text-white text-decoration-none">
+                    <svg class="bi me-2" width="40" height="32" role="img" aria-label="Bootstrap">
+                        <use xlink:href="#bootstrap"></use>
+                    </svg>
+                </a>
 
-            <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
-                <li><img src="../static/free-30-instagram-stories-icons60_122607.ico"></li>
-                <li><a href="menu.html" class="nav-link px-2 text-secondary">Super gym</a></li>
-                <li><a href="coaches.html" class="nav-link px-2 text-white">Coaches</a></li>
-                <li><a href="pricing.html" class="nav-link px-2 text-white">Pricing</a></li>
-                <li><a href="about.html" class="nav-link px-2 text-white">About</a></li>
-            </ul>
-
-            <div class="text-end">
-                <button type="button" onclick="window.location.href = 'login.html'" class="btn btn-outline-light me-2">
-                    Login
-                </button>
-                <button type="button" onclick="window.location.href = 'sign-up.html'" class="btn btn-warning">Sign-up
-                </button>
+                <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
+                    <li><img th:src="@{/design-site/free-30-instagram-stories-icons60_122607.ico}"
+                             src="../static/design-site/free-30-instagram-stories-icons60_122607.ico"></li>
+                    <li><a th:href="@{/}" href="menu.html" class="nav-link px-2 text-secondary">Super gym</a></li>
+                    <li><a th:href="@{/coaches}" href="coaches.html" class="nav-link px-2 text-white">Coaches</a></li>
+                    <li><a th:href="@{/pricing}" href="pricing.html" class="nav-link px-2 text-white">Pricing</a></li>
+                    <li><a th:href="@{/about}" href="about.html" class="nav-link px-2 text-white">About</a></li>
+                </ul>
+                <div sec:authorize="!isAuthenticated()" class="text-end">
+                    <a th:href="@{/login}" href="login.html"
+                       class="btn btn-outline-light me-2">
+                        Login
+                    </a>
+                    <a sec:authorize="!isAuthenticated()" th:href="@{/sign-up}" href="sign-up.html"
+                       class="btn btn-warning">Sign-up
+                    </a>
+                </div>
             </div>
         </div>
-    </div>
-</header>
+    </header>
+</div>
+
 <h1 class="registration-header">Create your account</h1>
 
 <div class="registration">
-    <div>
-        <label for="firstName" class="name">First name</label>
-        <input type="text" class="form-control" id="firstName" required>
-        <div class="invalid-feedback">
-            Valid first name is required.
+    <form th:action="@{/sign-up}" th:object="${visitor}" method="post">
+        <div class="form-group">
+            <label for="firstName" class="name">First name</label>
+            <input type="text" class="form-control" pattern="[A-Za-z]{1,32}" id="firstName"
+                   title="Name must not contain numbers" th:field="*{name}" required>
+            <div class="invalid-feedback">
+                Valid first name is required.
+            </div>
         </div>
-    </div>
-    <div>
-        <label for="lastName" class="name">Last name</label>
-        <input type="text" class="form-control" id="lastName" required>
-        <div class="invalid-feedback">
-            Valid last name is required.
+        <div class="form-group">
+            <label for="lastName" class="name">Last name</label>
+            <input type="text" class="form-control" id="lastName" pattern="[A-Za-z]{1,32}"
+                   title="Surname must not contain numbers" th:field="*{surname}" required>
         </div>
-    </div>
-    <div>
-        <label for="age" class="name">Age</label>
-        <input type="number" class="form-control" id="age" required>
-        <div class="invalid-feedback">
-            Valid age is required.
+        <div>
+            <label for="age" class="name">Age</label>
+            <input type="number" class="form-control" id="age" th:field="*{age}" required>
+            <p class="error" th:errors="*{age}" th:if="${#fields.hasErrors('age')}">
+                Error
+            </p>
         </div>
-    </div>
-    <div>
-        <label for="email" class="name">Email</label>
-        <input type="email" class="form-control" id="email" required>
-        <div class="invalid-feedback">
-            Valid first email is required.
+        <div>
+            <label for="email" class="name">Email</label>
+            <input type="email" class="form-control" id="email" th:field="*{email}" required>
+            <p class="error" th:errors="*{email}" th:if="${#fields.hasErrors('email')}">
+                Error
+            </p>
         </div>
-    </div>
-    <div>
-        <label for="password" class="name">Password</label>
-        <input type="password" class="form-control" id="password">
-        <div class="invalid-feedback">
-            Please enter a valid password for shipping updates.
+        <div>
+            <label for="password" class="name">Password</label>
+            <input type="password" minlength="5" maxlength="32" class="form-control" id="password"
+                   th:field="*{password}" required>
+            <div class="invalid-feedback">
+                Please enter a valid password for shipping updates.
+            </div>
         </div>
-    </div>
 
-    <div class="d-block my-3">
-        <div class="custom-control custom-radio">
-            <input id="credit" name="paymentMethod" type="radio" class="custom-control-input" checked required>
+        <div>
+            <input id="credit" name="paymentMethod" type="radio" class="custom-control-input"
+                   th:value="${T(com.alevel.gym.model.Sex).MAN}" th:field="*{sex}" required>
             <label class="custom-control-label" for="credit">Man</label>
         </div>
+
         <div class="custom-control custom-radio">
-            <input id="debit" name="paymentMethod" type="radio" class="custom-control-input" required>
+            <input id="debit" name="paymentMethod" type="radio" class="custom-control-input"
+                   th:value="${T(com.alevel.gym.model.Sex).WOMAN}" th:field="*{sex}" required>
             <label class="custom-control-label" for="debit">Woman</label>
+            <div class="submit-registration">
+                <button type="submit" class="btn btn-dark">Registration</button>
+            </div>
         </div>
-    </div>
-    <div class="submit-registration">
-        <button type="submit" class="btn btn-dark">Registration</button>
-    </div>
+    </form>
 </div>
 
-<div class="container-footer">
-    <footer class="py-3 my-4">
-        <ul class="nav justify-content-center border-bottom pb-3 mb-3">
-            <li class="nav-item"><a href="menu.html" class="nav-link px-2 text-muted">Super gym</a></li>
-            <li class="nav-item"><a href="coaches.html" class="nav-link px-2 text-muted">Coaches</a></li>
-            <li class="nav-item"><a href="pricing.html" class="nav-link px-2 text-muted">Pricing</a></li>
-            <li class="nav-item"><a href="about.html" class="nav-link px-2 text-muted">About</a></li>
-        </ul>
-        <p class="text-center">© 2022 Company super gym, Inc</p>
-    </footer>
+<div th:fragment="footer-container">
+    <div class="container-footer">
+        <footer class="py-3 my-4">
+            <ul class="nav justify-content-center border-bottom pb-3 mb-3">
+                <li class="nav-item"><a th:href="@{/}" href="menu.html" class="nav-link px-2 text-muted">Super
+                    gym</a>
+                </li>
+                <li class="nav-item"><a th:href="@{/coaches}" href="coaches.html"
+                                        class="nav-link px-2 text-muted">Coaches</a>
+                </li>
+                <li class="nav-item"><a th:href="@{/pricing}" href="pricing.html"
+                                        class="nav-link px-2 text-muted">Pricing</a>
+                </li>
+                <li class="nav-item"><a th:href="@{/about}" href="about.html" class="nav-link px-2 text-muted">About</a>
+                </li>
+            </ul>
+            <p class="text-center">© 2022 Company super gym, Inc</p>
+        </footer>
+    </div>
 </div>
 </body>
 </html>
