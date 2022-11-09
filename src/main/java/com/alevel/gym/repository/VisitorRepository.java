@@ -13,7 +13,14 @@ import java.util.List;
 @Repository
 public interface VisitorRepository extends JpaRepository<Visitor, String> {
 
-    @Query(value = "select * from Visitor where status_people = :statusPeople", nativeQuery = true)
+    @Query(value = "select visitor.id, visitor.name, " +
+            "visitor.surname, visitor.age, " +
+            "visitor.email, visitor.password, visitor.sex, visitor.status_people, visitor.locked_id, " +
+            "visitor.coach_id, visitor.subscription_id " +
+            "from visitor " +
+            "left join coach on visitor.coach_id = coach.id " +
+            "left join subscription on visitor.subscription_id = subscription.id " +
+            "where visitor.status_people = :statusPeople", nativeQuery = true)
     List<Visitor> findAllByStatusPeople(@Param("statusPeople")String statusPeople);
 
     Visitor findByEmail(String email);

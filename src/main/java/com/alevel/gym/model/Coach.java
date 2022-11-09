@@ -28,7 +28,6 @@ public class Coach extends People {
     private String imageURL;
 
     @OneToMany(mappedBy = "coach",
-            cascade = {CascadeType.REMOVE, CascadeType.MERGE},
             fetch = FetchType.EAGER)
     private Set<Visitor> visitors;
 
