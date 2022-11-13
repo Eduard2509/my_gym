@@ -139,6 +139,11 @@ main {
     background: cornsilk;
 }
 
+.card img {
+    width: 283px;
+    height: 156px;
+}
+
 .about-title {
     position: relative;
     font-size: 80px;
